@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Mimo Nails Studio</title>
+<!-- Mimo Nails Studio · Bip page. All names, prices, phones and addresses are invented sample content.
+     Photos: put one image per item in a "fotos" folder next to this file, named as in each <img src>; it covers the drawing.
+     Without JavaScript all sections show stacked and buttons scroll to them. -->
+<style>
+:root{--acento:#1D9E75;--acento-fuerte:#14795A;--acento-texto:#14795A;--acento-suave:#FCE3EA;--fondo:#FFF1EE;--tarjeta:#FFFFFF;--tinta:#2B2326;--tinta-suave:#6A5A5F;--linea:#F3D9D2;}
+
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--fondo);color:var(--tinta);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:17px;line-height:1.45}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--acento);outline-offset:3px}
+.pagina{max-width:640px;margin:0 auto;padding:28px 20px 48px}
+.pantalla{margin-bottom:40px}
+.simbolos{position:absolute;width:0;height:0;overflow:hidden}
+
+.cabecera{text-align:center;margin-bottom:28px}
+.marca{margin:0;color:var(--acento)}
+.marca-sub{margin:8px 0 0;font-size:13px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--tinta-suave)}
+.lema{margin:14px 0 0;color:var(--tinta-suave);font-size:16px}
+
+.botones{display:grid;gap:14px;grid-template-columns:1fr}
+@media (min-width:560px){.botones{grid-template-columns:1fr 1fr}}
+.boton{display:flex;flex-direction:column;justify-content:center;gap:2px;min-height:96px;padding:18px 56px 18px 20px;position:relative;background:var(--acento-fuerte);color:#fff;text-decoration:none;border-radius:20px}
+.boton::after{content:"";position:absolute;right:22px;top:50%;width:12px;height:12px;margin-top:-8px;border-right:3px solid #fff;border-top:3px solid #fff;transform:rotate(45deg)}
+.boton strong{font-size:24px;line-height:1.1;font-weight:800}
+.boton span{font-size:15px;opacity:.95}
+.boton.claro{background:var(--tarjeta);color:var(--tinta);border:2px solid var(--acento-fuerte)}
+.boton.claro::after{border-color:var(--acento)}
+
+.contacto{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin-top:24px}
+.accion{display:flex;align-items:center;justify-content:center;min-height:52px;padding:0 12px;border-radius:14px;border:2px solid var(--acento-fuerte);background:transparent;color:var(--acento-texto);font-weight:700;text-decoration:none;text-align:center}
+.accion.llena{background:var(--acento-fuerte);color:#fff}
+.acciones{display:grid;gap:12px;margin-top:20px}
+.pie{margin-top:28px;text-align:center;color:var(--tinta-suave);font-size:14px}
+.pie p{margin:4px 0}
+
+.volver{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 4px;margin-bottom:8px;font-weight:600;color:var(--acento-texto);text-decoration:none}
+.volver::before{content:"";width:10px;height:10px;border-left:3px solid currentColor;border-bottom:3px solid currentColor;transform:rotate(45deg)}
+.titulo{margin:0 0 4px;font-size:34px;line-height:1.05;font-weight:800}
+.sub{margin:0 0 20px;color:var(--tinta-suave)}
+.bloque{margin-top:28px}
+.bloque h2{margin:0 0 6px;padding-bottom:8px;font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--acento-texto);border-bottom:2px solid var(--acento)}
+.lista{list-style:none;margin:0;padding:0}
+.plato{display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--linea)}
+.plato:last-child{border-bottom:0}
+.plato-cuerpo{flex:1;min-width:0}
+.plato-fila{display:flex;justify-content:space-between;gap:16px;align-items:baseline}
+.plato-nombre{font-weight:700;font-size:18px}
+.precio{font-weight:700;white-space:nowrap}
+.desc{margin:2px 0 0;color:var(--tinta-suave);font-size:15px}
+
+.foto{position:relative;flex:none;width:72px;height:72px;overflow:hidden;border-radius:14px;background:var(--acento-suave)}
+.foto svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.foto img,.tile img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;z-index:1}
+
+.galeria{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+@media (min-width:560px){.galeria{grid-template-columns:1fr 1fr 1fr}}
+.tile-fig{margin:0}
+.tile{position:relative;aspect-ratio:1/1;border-radius:16px;overflow:hidden;background:var(--acento-suave);color:var(--acento);border:1px solid var(--linea)}
+.tile svg{position:absolute;left:10%;top:10%;width:80%;height:80%}
+.tile-fig figcaption{margin-top:6px;font-size:14px;font-weight:600;color:var(--tinta-suave);text-align:center}
+
+.pasos{list-style:none;margin:0;padding:0;counter-reset:paso}
+.pasos li{position:relative;padding:12px 0 12px 52px;border-bottom:1px solid var(--linea);counter-increment:paso}
+.pasos li:last-child{border-bottom:0}
+.pasos li::before{content:counter(paso);position:absolute;left:0;top:12px;width:36px;height:36px;border-radius:18px;background:var(--acento-fuerte);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center}
+.pasos strong{display:block}
+.pasos span{color:var(--tinta-suave);font-size:15px}
+
+.aviso{margin:0 0 8px;padding:16px 18px;border-radius:16px;background:var(--tarjeta);border:2px solid var(--acento-fuerte);font-weight:600}
+.precio-menu{display:inline-block;margin:0 0 6px;padding:6px 16px;border-radius:999px;background:var(--acento-fuerte);color:#fff;font-weight:800;font-size:22px}
+
+body.n{font-family:ui-rounded,"SF Pro Rounded","Nunito","Segoe UI",system-ui,sans-serif;font-weight:600}
+.n .cabecera{margin-bottom:26px}
+.n .marca{display:inline-block;font-size:88px;line-height:1;font-weight:800;letter-spacing:-.05em;color:var(--tinta);background:linear-gradient(transparent 62%,#F4B6C8 62%,#F4B6C8 92%,transparent 92%);padding:0 6px}
+.n .marca-sub{display:inline-block;margin-top:16px;padding:6px 14px;border-radius:999px;background:var(--tarjeta);font-size:12px}
+.n .tarjetas{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.n .tarjeta-b{display:flex;flex-direction:column;justify-content:flex-end;aspect-ratio:1/1.05;padding:14px 16px 16px;border-radius:30px;text-decoration:none;color:var(--tinta);position:relative;overflow:hidden;box-shadow:0 6px 0 rgba(43,35,38,.08)}
+.n .tarjeta-b svg{position:absolute;left:50%;top:8px;width:58%;height:54%;transform:translateX(-50%)}
+.n .tarjeta-b strong{position:relative;font-size:21px;line-height:1.05;font-weight:800}
+.n .tarjeta-b span{position:relative;font-size:13px;font-weight:600;opacity:.8}
+.n .c1{background:#FDD9E3}.n .c2{background:#D8F0E6}.n .c3{background:#FFEBB8}.n .c4{background:#E4DBFA}
+.n .tarjeta-b:active{transform:translateY(3px);box-shadow:0 3px 0 rgba(43,35,38,.08)}
+.n .contacto{margin-top:22px}
+.n .contacto .accion{border-radius:999px;border:0;background:var(--tarjeta);color:var(--tinta);font-weight:800;box-shadow:0 4px 0 rgba(43,35,38,.08)}
+.n .titulo{font-size:42px;font-weight:800;letter-spacing:-.03em}
+.n .bloque h2{display:inline-block;border:0;padding:6px 14px;border-radius:999px;background:var(--acento-suave);color:var(--tinta);font-size:12px;margin-bottom:10px}
+.n .lista{display:grid;gap:10px}
+.n .plato{background:var(--tarjeta);border:0;border-radius:22px;padding:14px 16px;box-shadow:0 4px 0 rgba(43,35,38,.06)}
+.n .precio{background:#D8F0E6;border-radius:999px;padding:2px 12px;font-size:15px}
+.n .galeria{gap:18px 12px}
+.n .tile{border-radius:50%;border:5px solid #fff;box-shadow:0 6px 0 rgba(43,35,38,.08)}
+.n .tile svg{left:13%;top:13%;width:74%;height:74%}
+.n .tile-fig figcaption{font-weight:800;color:var(--tinta);margin-top:10px}
+.n .pasos li{background:var(--tarjeta);border:0;border-radius:22px;margin-bottom:10px;padding:14px 14px 14px 62px}
+.n .pasos li::before{left:14px;top:12px;background:#F4B6C8;color:var(--tinta)}
+.n .aviso{border:0;border-radius:24px;background:#D8F0E6}
+.n .acciones .accion{border-radius:999px;font-weight:800}
+</style>
+</head>
+<body class="n">
+<svg class="simbolos" aria-hidden="true" focusable="false"><symbol id="m-degradado" viewBox="0 0 100 100"><rect x="12" y="58" width="76" height="38" rx="16" fill="#F3CDB9"/><rect x="14.0" y="36" width="14" height="44" rx="7" fill="#F3CDB9"/><rect x="16.0" y="39" width="10" height="16" rx="4.5" fill="#9ED8C6"/><rect x="29.5" y="26" width="14" height="54" rx="7" fill="#F3CDB9"/><rect x="31.5" y="29" width="10" height="16" rx="4.5" fill="#8CCFD6"/><rect x="45.0" y="22" width="14" height="58" rx="7" fill="#F3CDB9"/><rect x="47.0" y="25" width="10" height="16" rx="4.5" fill="#7FC0E0"/><rect x="60.5" y="26" width="14" height="54" rx="7" fill="#F3CDB9"/><rect x="62.5" y="29" width="10" height="16" rx="4.5" fill="#8CCFD6"/><rect x="76.0" y="36" width="14" height="44" rx="7" fill="#F3CDB9"/><rect x="78.0" y="39" width="10" height="16" rx="4.5" fill="#9ED8C6"/></symbol><symbol id="m-dorado" viewBox="0 0 100 100"><rect x="12" y="58" width="76" height="38" rx="16" fill="#F3CDB9"/><rect x="14.0" y="36" width="14" height="44" rx="7" fill="#F3CDB9"/><rect x="16.0" y="39" width="10" height="16" rx="4.5" fill="#E6C25A"/><circle cx="20.0" cy="45" r="1.3" fill="#FFF6C8"/><circle cx="23.0" cy="50" r="1" fill="#FFF6C8"/><rect x="29.5" y="26" width="14" height="54" rx="7" fill="#F3CDB9"/><rect x="31.5" y="29" width="10" height="16" rx="4.5" fill="#E6C25A"/><circle cx="35.5" cy="35" r="1.3" fill="#FFF6C8"/><circle cx="38.5" cy="40" r="1" fill="#FFF6C8"/><rect x="45.0" y="22" width="14" height="58" rx="7" fill="#F3CDB9"/><rect x="47.0" y="25" width="10" height="16" rx="4.5" fill="#E6C25A"/><circle cx="51.0" cy="31" r="1.3" fill="#FFF6C8"/><circle cx="54.0" cy="36" r="1" fill="#FFF6C8"/><rect x="60.5" y="26" width="14" height="54" rx="7" fill="#F3CDB9"/><rect x="62.5" y="29" width="10" height="16" rx="4.5" fill="#E6C25A"/><circle cx="66.5" cy="35" r="1.3" fill="#FFF6C8"/><circle cx="69.5" cy="40" r="1" fill="#FFF6C8"/><rect x="76.0" y="36" width="14" height="44" rx="7" fill="#F3CDB9"/><rect x="78.0" y="39" width="10" height="16" rx="4.5" fill="#E6C25A"/><circle cx="82.0" cy="45" r="1.3" fill="#FFF6C8"/><circle cx="85.0" cy="50" r="1" fill="#FFF6C8"/></symbol><symbol id="m-french" viewBox="0 0 100 100"><rect x="12" y="58" width="76" height="38" rx="16" fill="#F3CDB9"/><rect x="14.0" y="36" width="14" height="44" rx="7" fill="#F3CDB9"/><rect x="16.0" y="39" width="10" height="16" rx="4.5" fill="#F8E1D8"/><rect x="16.0" y="39" width="10" height="5" rx="2.5" fill="#FFFFFF"/><rect x="29.5" y="26" width="14" height="54" rx="7" fill="#F3CDB9"/><rect x="31.5" y="29" width="10" height="16" rx="4.5" fill="#F8E1D8"/><rect x="31.5" y="29" width="10" height="5" rx="2.5" fill="#FFFFFF"/><rect x="45.0" y="22" width="14" height="58" rx="7" fill="#F3CDB9"/><rect x="47.0" y="25" width="10" height="16" rx="4.5" fill="#F8E1D8"/><rect x="47.0" y="25" width="10" height="5" rx="2.5" fill="#FFFFFF"/><rect x="60.5" y="26" width="14" height="54" rx="7" fill="#F3CDB9"/><rect x="62.5" y="29" width="10" height="16" rx="4.5" fill="#F8E1D8"/><rect x="62.5" y="29" width="10" height="5" rx="2.5" fill="#FFFFFF"/><rect x="76.0" y="36" width="14" height="44" rx="7" fill="#F3CDB9"/><rect x="78.0" y="39" width="10" height="16" rx="4.5" fill="#F8E1D8"/><rect x="78.0" y="39" width="10" height="5" rx="2.5" fill="#FFFFFF"/></symbol><symbol id="m-negro-brillo" viewBox="0 0 100 100"><rect x="12" y="58" width="76" height="38" rx="16" fill="#F3CDB9"/><rect x="14.0" y="36" width="14" height="44" rx="7" fill="#F3CDB9"/><rect x="16.0" y="39" width="10" height="16" rx="4.5" fill="#2A2A2E"/><rect x="29.5" y="26" width="14" height="54" rx="7" fill="#F3CDB9"/><rect x="31.5" y="29" width="10" height="16" rx="4.5" fill="#2A2A2E"/><rect x="45.0" y="22" width="14" height="58" rx="7" fill="#F3CDB9"/><rect x="47.0" y="25" width="10" height="16" rx="4.5" fill="#2A2A2E"/><rect x="60.5" y="26" width="14" height="54" rx="7" fill="#F3CDB9"/><rect x="62.5" y="29" width="10" height="16" rx="4.5" fill="#2A2A2E"/><rect x="76.0" y="36" width="14" height="44" rx="7" fill="#F3CDB9"/><rect x="78.0" y="39" width="10" height="16" rx="4.5" fill="#2A2A2E"/><rect x="17.0" y="40" width="2" height="7" rx="1" fill="#FFFFFF" opacity=".7"/><rect x="32.5" y="30" width="2" height="7" rx="1" fill="#FFFFFF" opacity=".7"/><rect x="48.0" y="26" width="2" height="7" rx="1" fill="#FFFFFF" opacity=".7"/><rect x="63.5" y="30" width="2" height="7" rx="1" fill="#FFFFFF" opacity=".7"/><rect x="79.0" y="40" width="2" height="7" rx="1" fill="#FFFFFF" opacity=".7"/></symbol><symbol id="m-rojo-clasico" viewBox="0 0 100 100"><rect x="12" y="58" width="76" height="38" rx="16" fill="#F3CDB9"/><rect x="14.0" y="36" width="14" height="44" rx="7" fill="#F3CDB9"/><rect x="16.0" y="39" width="10" height="16" rx="4.5" fill="#C0283B"/><rect x="29.5" y="26" width="14" height="54" rx="7" fill="#F3CDB9"/><rect x="31.5" y="29" width="10" height="16" rx="4.5" fill="#C0283B"/><rect x="45.0" y="22" width="14" height="58" rx="7" fill="#F3CDB9"/><rect x="47.0" y="25" width="10" height="16" rx="4.5" fill="#C0283B"/><rect x="60.5" y="26" width="14" height="54" rx="7" fill="#F3CDB9"/><rect x="62.5" y="29" width="10" height="16" rx="4.5" fill="#C0283B"/><rect x="76.0" y="36" width="14" height="44" rx="7" fill="#F3CDB9"/><rect x="78.0" y="39" width="10" height="16" rx="4.5" fill="#C0283B"/></symbol><symbol id="m-rosa-pastel" viewBox="0 0 100 100"><rect x="12" y="58" width="76" height="38" rx="16" fill="#F3CDB9"/><rect x="14.0" y="36" width="14" height="44" rx="7" fill="#F3CDB9"/><rect x="16.0" y="39" width="10" height="16" rx="4.5" fill="#F4B6C8"/><rect x="29.5" y="26" width="14" height="54" rx="7" fill="#F3CDB9"/><rect x="31.5" y="29" width="10" height="16" rx="4.5" fill="#F4B6C8"/><rect x="45.0" y="22" width="14" height="58" rx="7" fill="#F3CDB9"/><rect x="47.0" y="25" width="10" height="16" rx="4.5" fill="#F4B6C8"/><rect x="60.5" y="26" width="14" height="54" rx="7" fill="#F3CDB9"/><rect x="62.5" y="29" width="10" height="16" rx="4.5" fill="#F4B6C8"/><rect x="76.0" y="36" width="14" height="44" rx="7" fill="#F3CDB9"/><rect x="78.0" y="39" width="10" height="16" rx="4.5" fill="#F4B6C8"/></symbol></svg>
+<main class="pagina">
+<section id="inicio" class="pantalla"><header class="cabecera"><h1 class="marca">mimo</h1><p class="marca-sub">Nails studio · Bilbao</p><p class="lema">Uñas cuidadas, diseños con personalidad.</p></header><nav class="tarjetas" aria-label="Secciones"><a class="tarjeta-b c1" href="#servicios" data-ir="servicios"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#m-rosa-pastel"/></svg><strong>Servicios</strong><span>Precios y tratamientos</span></a><a class="tarjeta-b c2" href="#disenos" data-ir="disenos"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#m-degradado"/></svg><strong>Diseños</strong><span>Ideas para tus uñas</span></a><a class="tarjeta-b c3" href="#cuidados" data-ir="cuidados"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#m-french"/></svg><strong>Cuidados</strong><span>Que duren más</span></a><a class="tarjeta-b c4" href="#reservar" data-ir="reservar"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#m-rojo-clasico"/></svg><strong>Reservar</strong><span>Pide tu cita</span></a></nav><div class="contacto"><a class="accion" href="tel:+34944004567">Llamar</a><a class="accion" href="https://www.google.com/maps/search/?api=1&amp;query=Calle+Iparraguirre+21+Bilbao" target="_blank" rel="noopener">Cómo llegar</a></div><footer class="pie"><p>Calle Iparraguirre 21, 48011 Bilbao</p><p>944 00 45 67</p><p>Lunes a sábado · 10:00–20:00 · Con cita</p></footer></section>
+<section id="servicios" class="pantalla"><a class="volver" href="#inicio" data-ir="inicio">Volver</a><h2 class="titulo">Servicios y precios</h2><p class="sub">Precios con IVA.</p><div class="bloque"><h2>Manos</h2><ul class="lista"><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Manicura básica</span><span class="precio">12 €</span></div><p class="desc">Limado, cutículas y esmaltado</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Semipermanente</span><span class="precio">20 €</span></div><p class="desc">Dura hasta 3 semanas</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Uñas esculpidas en gel</span><span class="precio">38 €</span></div><p class="desc">Set completo</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Relleno</span><span class="precio">28 €</span></div><p class="desc">Cada 3 o 4 semanas</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Nail art</span><span class="precio">desde 3 €</span></div><p class="desc">Por uña, según el diseño</p></div></li></ul></div><div class="bloque"><h2>Pies</h2><ul class="lista"><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Pedicura básica</span><span class="precio">25 €</span></div></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Pedicura semipermanente</span><span class="precio">32 €</span></div></div></li></ul></div><div class="bloque"><h2>Extras</h2><ul class="lista"><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Retirada de semipermanente</span><span class="precio">8 €</span></div></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Parafina y masaje de manos</span><span class="precio">10 €</span></div></div></li></ul></div></section><section id="disenos" class="pantalla"><a class="volver" href="#inicio" data-ir="inicio">Volver</a><h2 class="titulo">Diseños</h2><p class="sub">Algunas ideas. Puedes traer una foto de referencia y la adaptamos.</p><div class="galeria"><figure class="tile-fig"><div class="tile"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#m-rosa-pastel"/></svg><img src="fotos/rosa-pastel.jpg" alt=""></div><figcaption>Rosa pastel</figcaption></figure><figure class="tile-fig"><div class="tile"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#m-rojo-clasico"/></svg><img src="fotos/rojo-clasico.jpg" alt=""></div><figcaption>Rojo clásico</figcaption></figure><figure class="tile-fig"><div class="tile"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#m-french"/></svg><img src="fotos/french.jpg" alt=""></div><figcaption>French</figcaption></figure><figure class="tile-fig"><div class="tile"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#m-degradado"/></svg><img src="fotos/degradado.jpg" alt=""></div><figcaption>Degradado</figcaption></figure><figure class="tile-fig"><div class="tile"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#m-negro-brillo"/></svg><img src="fotos/negro-brillo.jpg" alt=""></div><figcaption>Negro brillo</figcaption></figure><figure class="tile-fig"><div class="tile"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#m-dorado"/></svg><img src="fotos/dorado.jpg" alt=""></div><figcaption>Glitter dorado</figcaption></figure></div></section><section id="cuidados" class="pantalla"><a class="volver" href="#inicio" data-ir="inicio">Volver</a><h2 class="titulo">Cuidados</h2><p class="sub">Para que tu manicura dure más y tus uñas estén sanas.</p><ol class="pasos"><li><strong>Hidrata cada día</strong><span>Aplica aceite de cutículas y crema de manos.</span></li><li><strong>Protégete</strong><span>Usa guantes para fregar o limpiar con productos fuertes.</span></li><li><strong>No las uses de herramienta</strong><span>No abras latas ni rasques etiquetas con las uñas.</span></li><li><strong>No arranques el esmalte</strong><span>Pide siempre que te lo retiremos en el estudio.</span></li><li><strong>Revisión</strong><span>Si ves levantamientos o molestias, escríbenos y lo revisamos.</span></li></ol></section><section id="reservar" class="pantalla"><a class="volver" href="#inicio" data-ir="inicio">Volver</a><h2 class="titulo">Reservar</h2><p class="sub">Pide tu cita por WhatsApp o llámanos.</p><ol class="pasos"><li><strong>Dinos qué servicio quieres</strong><span>Y si traes un diseño de referencia, mándanos una foto.</span></li><li><strong>Elegimos día y hora</strong><span>Te proponemos huecos libres.</span></li><li><strong>Confirmación</strong><span>Te recordamos la cita el día anterior. Si no puedes venir, avísanos con 24 horas.</span></li></ol><div class="acciones"><a class="accion llena" href="https://wa.me/34600123456?text=Hola%2C%20quiero%20pedir%20cita" target="_blank" rel="noopener">Pedir cita por WhatsApp</a><a class="accion" href="tel:+34944004567">Llamar</a></div></section>
+</main>
+<script>
+// Show one screen at a time. Without JS all screens stay visible and links just scroll.
+const pantallas = document.querySelectorAll('.pantalla');
+
+function mostrar(id) {
+  const existe = document.getElementById(id);
+  const destino = existe ? id : 'inicio';
+  pantallas.forEach(function (p) {
+    p.hidden = p.id !== destino;
+  });
+  window.scrollTo(0, 0);
+}
+
+document.querySelectorAll('[data-ir]').forEach(function (enlace) {
+  enlace.addEventListener('click', function (e) {
+    e.preventDefault();
+    const id = enlace.getAttribute('data-ir');
+    mostrar(id);
+    location.hash = id;
+  });
+});
+
+window.addEventListener('hashchange', function () {
+  mostrar(location.hash.slice(1));
+});
+
+// Missing photos: remove the broken image so the drawing underneath shows
+document.querySelectorAll('.foto img, .tile img').forEach(function (img) {
+  if (img.complete && img.naturalWidth === 0) {
+    img.remove();
+  } else {
+    img.addEventListener('error', function () {
+      img.remove();
+    });
+  }
+});
+
+mostrar(location.hash.slice(1));
+</script>
+</body>
+</html>

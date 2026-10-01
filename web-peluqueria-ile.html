@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Peluquería Ile</title>
+<!-- Peluquería Ile · Bip page. All names, prices, phones and addresses are invented sample content.
+     Photos: put one image per item in a "fotos" folder next to this file, named as in each <img src>; it covers the drawing.
+     Without JavaScript all sections show stacked and buttons scroll to them. -->
+<style>
+:root{--acento:#1D9E75;--acento-fuerte:#14795A;--acento-texto:#14795A;--acento-suave:#EDE5D8;--fondo:#F6F1E9;--tarjeta:#FFFFFF;--tinta:#2A2420;--tinta-suave:#6B5F55;--linea:#DCD2C3;}
+
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--fondo);color:var(--tinta);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:17px;line-height:1.45}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--acento);outline-offset:3px}
+.pagina{max-width:640px;margin:0 auto;padding:28px 20px 48px}
+.pantalla{margin-bottom:40px}
+.simbolos{position:absolute;width:0;height:0;overflow:hidden}
+
+.cabecera{text-align:center;margin-bottom:28px}
+.marca{margin:0;color:var(--acento)}
+.marca-sub{margin:8px 0 0;font-size:13px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--tinta-suave)}
+.lema{margin:14px 0 0;color:var(--tinta-suave);font-size:16px}
+
+.botones{display:grid;gap:14px;grid-template-columns:1fr}
+@media (min-width:560px){.botones{grid-template-columns:1fr 1fr}}
+.boton{display:flex;flex-direction:column;justify-content:center;gap:2px;min-height:96px;padding:18px 56px 18px 20px;position:relative;background:var(--acento-fuerte);color:#fff;text-decoration:none;border-radius:20px}
+.boton::after{content:"";position:absolute;right:22px;top:50%;width:12px;height:12px;margin-top:-8px;border-right:3px solid #fff;border-top:3px solid #fff;transform:rotate(45deg)}
+.boton strong{font-size:24px;line-height:1.1;font-weight:800}
+.boton span{font-size:15px;opacity:.95}
+.boton.claro{background:var(--tarjeta);color:var(--tinta);border:2px solid var(--acento-fuerte)}
+.boton.claro::after{border-color:var(--acento)}
+
+.contacto{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin-top:24px}
+.accion{display:flex;align-items:center;justify-content:center;min-height:52px;padding:0 12px;border-radius:14px;border:2px solid var(--acento-fuerte);background:transparent;color:var(--acento-texto);font-weight:700;text-decoration:none;text-align:center}
+.accion.llena{background:var(--acento-fuerte);color:#fff}
+.acciones{display:grid;gap:12px;margin-top:20px}
+.pie{margin-top:28px;text-align:center;color:var(--tinta-suave);font-size:14px}
+.pie p{margin:4px 0}
+
+.volver{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 4px;margin-bottom:8px;font-weight:600;color:var(--acento-texto);text-decoration:none}
+.volver::before{content:"";width:10px;height:10px;border-left:3px solid currentColor;border-bottom:3px solid currentColor;transform:rotate(45deg)}
+.titulo{margin:0 0 4px;font-size:34px;line-height:1.05;font-weight:800}
+.sub{margin:0 0 20px;color:var(--tinta-suave)}
+.bloque{margin-top:28px}
+.bloque h2{margin:0 0 6px;padding-bottom:8px;font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--acento-texto);border-bottom:2px solid var(--acento)}
+.lista{list-style:none;margin:0;padding:0}
+.plato{display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--linea)}
+.plato:last-child{border-bottom:0}
+.plato-cuerpo{flex:1;min-width:0}
+.plato-fila{display:flex;justify-content:space-between;gap:16px;align-items:baseline}
+.plato-nombre{font-weight:700;font-size:18px}
+.precio{font-weight:700;white-space:nowrap}
+.desc{margin:2px 0 0;color:var(--tinta-suave);font-size:15px}
+
+.foto{position:relative;flex:none;width:72px;height:72px;overflow:hidden;border-radius:14px;background:var(--acento-suave)}
+.foto svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.foto img,.tile img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;z-index:1}
+
+.galeria{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+@media (min-width:560px){.galeria{grid-template-columns:1fr 1fr 1fr}}
+.tile-fig{margin:0}
+.tile{position:relative;aspect-ratio:1/1;border-radius:16px;overflow:hidden;background:var(--acento-suave);color:var(--acento);border:1px solid var(--linea)}
+.tile svg{position:absolute;left:10%;top:10%;width:80%;height:80%}
+.tile-fig figcaption{margin-top:6px;font-size:14px;font-weight:600;color:var(--tinta-suave);text-align:center}
+
+.pasos{list-style:none;margin:0;padding:0;counter-reset:paso}
+.pasos li{position:relative;padding:12px 0 12px 52px;border-bottom:1px solid var(--linea);counter-increment:paso}
+.pasos li:last-child{border-bottom:0}
+.pasos li::before{content:counter(paso);position:absolute;left:0;top:12px;width:36px;height:36px;border-radius:18px;background:var(--acento-fuerte);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center}
+.pasos strong{display:block}
+.pasos span{color:var(--tinta-suave);font-size:15px}
+
+.aviso{margin:0 0 8px;padding:16px 18px;border-radius:16px;background:var(--tarjeta);border:2px solid var(--acento-fuerte);font-weight:600}
+.precio-menu{display:inline-block;margin:0 0 6px;padding:6px 16px;border-radius:999px;background:var(--acento-fuerte);color:#fff;font-weight:800;font-size:22px}
+
+body.p{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400}
+.p .cabecera{margin-bottom:36px;padding-top:16px}
+.p .marca{font-family:Georgia,"Times New Roman",serif;font-style:italic;font-weight:400;font-size:84px;line-height:1;letter-spacing:-.01em;color:var(--tinta)}
+.p .marca-sub{font-size:12px;letter-spacing:.34em;font-weight:500;margin-top:14px}
+.p .marca-sub::before,.p .marca-sub::after{content:"";display:inline-block;width:28px;height:1px;background:var(--acento);vertical-align:middle;margin:0 12px}
+.p .lema{font-family:Georgia,serif;font-style:italic;font-size:18px}
+.p .carta-menu{border-top:1px solid var(--linea)}
+.p .linea{display:block;text-align:center;padding:22px 8px;border-bottom:1px solid var(--linea);text-decoration:none}
+.p .linea strong{display:block;font-family:Georgia,serif;font-weight:400;font-size:32px;line-height:1.1}
+.p .linea span{display:block;margin-top:4px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--tinta-suave)}
+.p .linea:hover strong,.p .linea:active strong{color:var(--acento-texto);font-style:italic}
+.p .contacto{display:flex;justify-content:center;gap:28px;margin-top:28px}
+.p .contacto .accion{min-height:44px;border:0;border-bottom:1px solid var(--acento);border-radius:0;padding:0 2px;font-size:13px;letter-spacing:.2em;text-transform:uppercase;font-weight:500}
+.p .pie{font-size:13px}
+.p .titulo{font-family:Georgia,serif;font-style:italic;font-weight:400;font-size:44px;text-align:center}
+.p .sub{text-align:center}
+.p .volver{font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:500}
+.p .bloque h2{display:flex;align-items:center;gap:14px;border:0;font-family:Georgia,serif;font-style:italic;font-weight:400;font-size:22px;letter-spacing:0;text-transform:none;color:var(--tinta)}
+.p .bloque h2::before,.p .bloque h2::after{content:"";flex:1;height:1px;background:var(--linea)}
+.p .plato{border-bottom:0;padding:8px 0}
+.p .plato-fila{justify-content:flex-start;gap:0}
+.p .plato-nombre{display:flex;flex:1;align-items:baseline;font-weight:500;font-size:17px}
+.p .plato-nombre::after{content:"";flex:1;margin:0 10px;border-bottom:1px dotted #B9AD9C}
+.p .precio{font-family:Georgia,serif;font-size:18px;color:var(--tinta)}
+.p .desc{font-size:14px}
+.p .galeria{gap:18px 14px}
+.p .tile{aspect-ratio:3/4;border-radius:999px 999px 14px 14px;border:0}
+.p .tile svg{left:15%;top:22%;width:70%;height:56%}
+.p .tile-fig figcaption{font-family:Georgia,serif;font-style:italic;font-size:16px;font-weight:400}
+.p .pasos li{padding-left:44px}
+.p .pasos li::before{background:none;color:var(--acento-texto);font-family:Georgia,serif;font-style:italic;font-weight:400;font-size:32px;width:auto;height:auto;border-radius:0;justify-content:flex-start;top:6px}
+.p .aviso{border:0;border-top:1px solid var(--acento);border-bottom:1px solid var(--acento);border-radius:0;background:none;text-align:center;font-family:Georgia,serif;font-style:italic;font-weight:400;font-size:18px}
+.p .acciones .accion{border:1px solid var(--acento-fuerte);border-radius:2px;letter-spacing:.2em;text-transform:uppercase;font-size:13px;min-height:52px}
+.p .acciones .accion.llena{border:0}
+</style>
+</head>
+<body class="p">
+<svg class="simbolos" aria-hidden="true" focusable="false"><symbol id="m-color" viewBox="0 0 100 100"><rect x="11" y="18" width="13" height="64" rx="6.5" fill="#2B2523"/><rect x="27" y="18" width="13" height="64" rx="6.5" fill="#6B3E26"/><rect x="43" y="18" width="13" height="64" rx="6.5" fill="#C98A4B"/><rect x="59" y="18" width="13" height="64" rx="6.5" fill="#E8C77A"/><rect x="75" y="18" width="13" height="64" rx="6.5" fill="#B5301F"/></symbol><symbol id="m-espejo" viewBox="0 0 100 100"><circle cx="50" cy="38" r="26" fill="#EAF4F0" stroke="#1D9E75" stroke-width="5"/><rect x="45" y="64" width="10" height="28" rx="5" fill="#14795A"/><path d="M38 30 Q 44 22 54 24" stroke="#FFFFFF" stroke-width="4" fill="none" stroke-linecap="round"/></symbol><symbol id="m-ondas" viewBox="0 0 100 100"><g fill="none" stroke="#1D9E75" stroke-width="5" stroke-linecap="round"><path d="M12 30 q8 -12 19 0 t19 0 t19 0 t19 0"/><path d="M12 50 q8 -12 19 0 t19 0 t19 0 t19 0"/><path d="M12 70 q8 -12 19 0 t19 0 t19 0 t19 0"/></g></symbol><symbol id="m-peine" viewBox="0 0 100 100"><rect x="14" y="30" width="72" height="18" rx="5" fill="#1D9E75"/><rect x="20" y="48" width="4" height="28" rx="2" fill="#14795A"/><rect x="28" y="48" width="4" height="28" rx="2" fill="#14795A"/><rect x="36" y="48" width="4" height="28" rx="2" fill="#14795A"/><rect x="44" y="48" width="4" height="28" rx="2" fill="#14795A"/><rect x="52" y="48" width="4" height="28" rx="2" fill="#14795A"/><rect x="60" y="48" width="4" height="28" rx="2" fill="#14795A"/><rect x="68" y="48" width="4" height="28" rx="2" fill="#14795A"/><rect x="76" y="48" width="4" height="28" rx="2" fill="#14795A"/></symbol><symbol id="m-secador" viewBox="0 0 100 100"><path d="M16 34 h42 a18 14 0 0 1 0 28 h-42 z" fill="#1D9E75"/><rect x="30" y="60" width="14" height="30" rx="5" fill="#14795A"/><path d="M80 40 l8 -5 M80 48 h10 M80 56 l8 5" stroke="#2E3A35" stroke-width="4" stroke-linecap="round"/></symbol><symbol id="m-tijeras" viewBox="0 0 100 100"><g fill="none" stroke="#2E3A35" stroke-width="4" stroke-linecap="round"><circle cx="32" cy="78" r="10"/><circle cx="68" cy="78" r="10"/><path d="M38 70 L68 14"/><path d="M62 70 L32 14"/></g></symbol></svg>
+<main class="pagina">
+<section id="inicio" class="pantalla"><header class="cabecera"><h1 class="marca">ile</h1><p class="marca-sub">Peluquería · Bilbao</p><p class="lema">Tu pelo, a tu manera.</p></header><nav class="carta-menu" aria-label="Secciones"><a class="linea" href="#tarifas" data-ir="tarifas"><strong>Tarifas</strong><span>Cortes, color y tratamientos</span></a><a class="linea" href="#trabajos" data-ir="trabajos"><strong>Trabajos</strong><span>Ideas y resultados</span></a><a class="linea" href="#packs" data-ir="packs"><strong>Packs</strong><span>Combina y ahorra</span></a><a class="linea" href="#reservar" data-ir="reservar"><strong>Reservar</strong><span>Pide tu hora</span></a></nav><div class="contacto"><a class="accion" href="tel:+34944003456">Llamar</a><a class="accion" href="https://www.google.com/maps/search/?api=1&amp;query=Calle+Ledesma+9+Bilbao" target="_blank" rel="noopener">Cómo llegar</a></div><footer class="pie"><p>Calle Ledesma 9, 48001 Bilbao</p><p>944 00 34 56</p><p>Martes a sábado · 9:30–19:30</p></footer></section>
+<section id="tarifas" class="pantalla"><a class="volver" href="#inicio" data-ir="inicio">Volver</a><h2 class="titulo">Tarifas</h2><p class="sub">Precios con IVA. «Desde» indica que el precio varía según la longitud y la densidad.</p><div class="bloque"><h2>Corte</h2><ul class="lista"><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Corte mujer</span><span class="precio">28 €</span></div><p class="desc">Lavado, corte y secado</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Corte hombre</span><span class="precio">14 €</span></div></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Corte niños</span><span class="precio">10 €</span></div><p class="desc">Hasta 12 años</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Barba</span><span class="precio">8 €</span></div><p class="desc">Perfilado y arreglo</p></div></li></ul></div><div class="bloque"><h2>Peinado</h2><ul class="lista"><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Lavar y marcar</span><span class="precio">18 €</span></div></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Peinado recogido</span><span class="precio">desde 45 €</span></div><p class="desc">Ideal para eventos</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Secado</span><span class="precio">12 €</span></div></div></li></ul></div><div class="bloque"><h2>Color y tratamientos</h2><ul class="lista"><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Color de raíz</span><span class="precio">desde 35 €</span></div></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Mechas</span><span class="precio">desde 65 €</span></div></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Tratamiento hidratante</span><span class="precio">20 €</span></div></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Alisado de keratina</span><span class="precio">desde 80 €</span></div></div></li></ul></div></section><section id="trabajos" class="pantalla"><a class="volver" href="#inicio" data-ir="inicio">Volver</a><h2 class="titulo">Trabajos</h2><p class="sub">Algunas de las cosas que hacemos. Enséñanos una foto de lo que buscas y lo adaptamos a ti.</p><div class="galeria"><figure class="tile-fig"><div class="tile"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#m-tijeras"/></svg><img src="fotos/tijeras.jpg" alt=""></div><figcaption>Cortes</figcaption></figure><figure class="tile-fig"><div class="tile"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#m-color"/></svg><img src="fotos/color.jpg" alt=""></div><figcaption>Color</figcaption></figure><figure class="tile-fig"><div class="tile"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#m-ondas"/></svg><img src="fotos/ondas.jpg" alt=""></div><figcaption>Ondas y rizos</figcaption></figure><figure class="tile-fig"><div class="tile"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#m-secador"/></svg><img src="fotos/secador.jpg" alt=""></div><figcaption>Peinados</figcaption></figure><figure class="tile-fig"><div class="tile"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#m-peine"/></svg><img src="fotos/peine.jpg" alt=""></div><figcaption>Alisados</figcaption></figure><figure class="tile-fig"><div class="tile"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#m-espejo"/></svg><img src="fotos/espejo.jpg" alt=""></div><figcaption>Cambios de look</figcaption></figure></div></section><section id="packs" class="pantalla"><a class="volver" href="#inicio" data-ir="inicio">Volver</a><h2 class="titulo">Packs</h2><p class="sub">Ahorra combinando servicios.</p><div class="bloque"><h2>Packs</h2><ul class="lista"><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Corte + color de raíz</span><span class="precio">desde 55 €</span></div></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Corte + mechas</span><span class="precio">desde 85 €</span></div></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Corte + tratamiento</span><span class="precio">43 €</span></div><p class="desc">Hidratación incluida</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Novia</span><span class="precio">desde 120 €</span></div><p class="desc">Prueba y peinado el día de la boda</p></div></li></ul></div><div class="bloque"><p class="aviso">Los packs se reservan con antelación. Pregúntanos por descuentos para grupos.</p></div></section><section id="reservar" class="pantalla"><a class="volver" href="#inicio" data-ir="inicio">Volver</a><h2 class="titulo">Reservar</h2><p class="sub">Pide tu hora por WhatsApp o llámanos.</p><ol class="pasos"><li><strong>Elige el servicio</strong><span>Cuéntanos qué te gustaría hacerte.</span></li><li><strong>Elige el día</strong><span>Te proponemos las horas libres.</span></li><li><strong>Confirmamos</strong><span>Te enviamos un recordatorio el día anterior.</span></li></ol><div class="acciones"><a class="accion llena" href="https://wa.me/34600123456?text=Hola%2C%20quiero%20pedir%20cita" target="_blank" rel="noopener">Reservar por WhatsApp</a><a class="accion" href="tel:+34944003456">Llamar</a></div></section>
+</main>
+<script>
+// Show one screen at a time. Without JS all screens stay visible and links just scroll.
+const pantallas = document.querySelectorAll('.pantalla');
+
+function mostrar(id) {
+  const existe = document.getElementById(id);
+  const destino = existe ? id : 'inicio';
+  pantallas.forEach(function (p) {
+    p.hidden = p.id !== destino;
+  });
+  window.scrollTo(0, 0);
+}
+
+document.querySelectorAll('[data-ir]').forEach(function (enlace) {
+  enlace.addEventListener('click', function (e) {
+    e.preventDefault();
+    const id = enlace.getAttribute('data-ir');
+    mostrar(id);
+    location.hash = id;
+  });
+});
+
+window.addEventListener('hashchange', function () {
+  mostrar(location.hash.slice(1));
+});
+
+// Missing photos: remove the broken image so the drawing underneath shows
+document.querySelectorAll('.foto img, .tile img').forEach(function (img) {
+  if (img.complete && img.naturalWidth === 0) {
+    img.remove();
+  } else {
+    img.addEventListener('error', function () {
+      img.remove();
+    });
+  }
+});
+
+mostrar(location.hash.slice(1));
+</script>
+</body>
+</html>

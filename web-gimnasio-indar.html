@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Indar Gym</title>
+<!-- Indar Gym · Bip page. All names, prices, phones and addresses are invented sample content.
+     Photos: put one image per item in a "fotos" folder next to this file, named as in each <img src>; it covers the drawing.
+     Without JavaScript all sections show stacked and buttons scroll to them. -->
+<style>
+:root{--acento:#FF5B1F;--acento-fuerte:#E04A10;--acento-texto:#FF7A45;--acento-suave:#1F1B19;--fondo:#0F0E0D;--tarjeta:#1A1816;--tinta:#F6F3F0;--tinta-suave:#B5ADA6;--linea:#2E2925;}
+
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--fondo);color:var(--tinta);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:17px;line-height:1.45}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--acento);outline-offset:3px}
+.pagina{max-width:640px;margin:0 auto;padding:28px 20px 48px}
+.pantalla{margin-bottom:40px}
+.simbolos{position:absolute;width:0;height:0;overflow:hidden}
+
+.cabecera{text-align:center;margin-bottom:28px}
+.marca{margin:0;color:var(--acento)}
+.marca-sub{margin:8px 0 0;font-size:13px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--tinta-suave)}
+.lema{margin:14px 0 0;color:var(--tinta-suave);font-size:16px}
+
+.botones{display:grid;gap:14px;grid-template-columns:1fr}
+@media (min-width:560px){.botones{grid-template-columns:1fr 1fr}}
+.boton{display:flex;flex-direction:column;justify-content:center;gap:2px;min-height:96px;padding:18px 56px 18px 20px;position:relative;background:var(--acento-fuerte);color:#fff;text-decoration:none;border-radius:20px}
+.boton::after{content:"";position:absolute;right:22px;top:50%;width:12px;height:12px;margin-top:-8px;border-right:3px solid #fff;border-top:3px solid #fff;transform:rotate(45deg)}
+.boton strong{font-size:24px;line-height:1.1;font-weight:800}
+.boton span{font-size:15px;opacity:.95}
+.boton.claro{background:var(--tarjeta);color:var(--tinta);border:2px solid var(--acento-fuerte)}
+.boton.claro::after{border-color:var(--acento)}
+
+.contacto{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin-top:24px}
+.accion{display:flex;align-items:center;justify-content:center;min-height:52px;padding:0 12px;border-radius:14px;border:2px solid var(--acento-fuerte);background:transparent;color:var(--acento-texto);font-weight:700;text-decoration:none;text-align:center}
+.accion.llena{background:var(--acento-fuerte);color:#fff}
+.acciones{display:grid;gap:12px;margin-top:20px}
+.pie{margin-top:28px;text-align:center;color:var(--tinta-suave);font-size:14px}
+.pie p{margin:4px 0}
+
+.volver{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 4px;margin-bottom:8px;font-weight:600;color:var(--acento-texto);text-decoration:none}
+.volver::before{content:"";width:10px;height:10px;border-left:3px solid currentColor;border-bottom:3px solid currentColor;transform:rotate(45deg)}
+.titulo{margin:0 0 4px;font-size:34px;line-height:1.05;font-weight:800}
+.sub{margin:0 0 20px;color:var(--tinta-suave)}
+.bloque{margin-top:28px}
+.bloque h2{margin:0 0 6px;padding-bottom:8px;font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--acento-texto);border-bottom:2px solid var(--acento)}
+.lista{list-style:none;margin:0;padding:0}
+.plato{display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--linea)}
+.plato:last-child{border-bottom:0}
+.plato-cuerpo{flex:1;min-width:0}
+.plato-fila{display:flex;justify-content:space-between;gap:16px;align-items:baseline}
+.plato-nombre{font-weight:700;font-size:18px}
+.precio{font-weight:700;white-space:nowrap}
+.desc{margin:2px 0 0;color:var(--tinta-suave);font-size:15px}
+
+.foto{position:relative;flex:none;width:72px;height:72px;overflow:hidden;border-radius:14px;background:var(--acento-suave)}
+.foto svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.foto img,.tile img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;z-index:1}
+
+.galeria{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+@media (min-width:560px){.galeria{grid-template-columns:1fr 1fr 1fr}}
+.tile-fig{margin:0}
+.tile{position:relative;aspect-ratio:1/1;border-radius:16px;overflow:hidden;background:var(--acento-suave);color:var(--acento);border:1px solid var(--linea)}
+.tile svg{position:absolute;left:10%;top:10%;width:80%;height:80%}
+.tile-fig figcaption{margin-top:6px;font-size:14px;font-weight:600;color:var(--tinta-suave);text-align:center}
+
+.pasos{list-style:none;margin:0;padding:0;counter-reset:paso}
+.pasos li{position:relative;padding:12px 0 12px 52px;border-bottom:1px solid var(--linea);counter-increment:paso}
+.pasos li:last-child{border-bottom:0}
+.pasos li::before{content:counter(paso);position:absolute;left:0;top:12px;width:36px;height:36px;border-radius:18px;background:var(--acento-fuerte);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center}
+.pasos strong{display:block}
+.pasos span{color:var(--tinta-suave);font-size:15px}
+
+.aviso{margin:0 0 8px;padding:16px 18px;border-radius:16px;background:var(--tarjeta);border:2px solid var(--acento-fuerte);font-weight:600}
+.precio-menu{display:inline-block;margin:0 0 6px;padding:6px 16px;border-radius:999px;background:var(--acento-fuerte);color:#fff;font-weight:800;font-size:22px}
+
+body.g{font-family:"Arial Narrow","Helvetica Neue",Arial,sans-serif}
+.g .pagina{padding-top:24px}
+.g .cabecera{text-align:left;margin-bottom:30px}
+.g .marca{font-size:112px;line-height:.85;font-weight:900;font-style:italic;text-transform:uppercase;letter-spacing:-.02em;color:var(--tinta)}
+.g .marca span{color:var(--acento)}
+.g .marca-sub{font-size:13px;font-weight:800;letter-spacing:.3em;color:var(--acento-texto);margin-top:16px}
+.g .lema{font-size:18px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--tinta)}
+.g .slabs{display:grid;gap:10px}
+.g .slab{position:relative;display:grid;grid-template-columns:54px 1fr;align-items:center;min-height:92px;padding:14px 18px;text-decoration:none;background:var(--tarjeta);border-left:8px solid var(--acento);transform:skewX(-6deg)}
+.g .slab>*{transform:skewX(6deg)}
+.g .slab b{font-size:22px;font-weight:900;color:var(--acento-texto)}
+.g .slab strong{display:block;font-size:32px;line-height:1;font-weight:900;font-style:italic;text-transform:uppercase}
+.g .slab .s{display:block;margin-top:5px;font-size:14px;font-weight:700;letter-spacing:.04em;color:var(--tinta-suave);text-transform:uppercase}
+.g .slab.s4{background:var(--acento-fuerte);border-left-color:#FFFFFF}
+.g .slab.s4 b,.g .slab.s4 .s{color:#FFFFFF}
+.g .slab:active{filter:brightness(1.2)}
+.g .contacto{margin-top:26px}
+.g .accion{border-radius:0;font-weight:900;text-transform:uppercase;letter-spacing:.08em}
+.g .pie{text-align:left}
+.g .volver{text-transform:uppercase;letter-spacing:.08em;font-weight:800}
+.g .titulo{font-size:58px;line-height:.9;font-weight:900;font-style:italic;text-transform:uppercase;color:var(--tinta)}
+.g .titulo::after{content:"";display:block;width:64px;height:8px;background:var(--acento);margin-top:12px}
+.g .sub{margin-top:14px;font-weight:600}
+.g .bloque h2{font-size:15px;font-weight:900;letter-spacing:.18em;border-bottom-width:3px}
+.g .plato-nombre{text-transform:uppercase;font-weight:900;font-style:italic;font-size:19px}
+.g .precio{font-weight:900;color:var(--acento-texto);font-size:18px}
+.g .tile{border-radius:0;background:var(--tarjeta);border:0;border-bottom:6px solid var(--acento)}
+.g .tile-fig figcaption{text-transform:uppercase;font-weight:900;letter-spacing:.1em;font-size:13px;color:var(--tinta)}
+.g .pasos li::before{border-radius:0;transform:skewX(-8deg);font-style:italic}
+.g .aviso,.g .accion{border-radius:0}
+.g .aviso{border-width:0;border-left:8px solid var(--acento)}
+</style>
+</head>
+<body class="g">
+<svg class="simbolos" aria-hidden="true" focusable="false"><symbol id="m-g-cardio" viewBox="0 0 72 72"><g fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M36 62C10 44 8 22 24 18c6-1 10 2 12 7 2-5 6-8 12-7 16 4 14 26-12 44z"/><path d="M14 38h12l5-10 7 20 5-12h17" stroke-width="3"/></g></symbol><symbol id="m-g-fuerza" viewBox="0 0 72 72"><g fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 36H67"/><rect x="14" y="20" width="7" height="32" rx="2"/><rect x="51" y="20" width="7" height="32" rx="2"/><rect x="7" y="27" width="5" height="18" rx="2"/><rect x="60" y="27" width="5" height="18" rx="2"/></g></symbol><symbol id="m-g-funcional" viewBox="0 0 72 72"><g fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M26 30C23 8 49 8 46 30"/><path d="M21 60C10 44 20 28 36 28S62 44 51 60Z"/></g></symbol><symbol id="m-g-hiit" viewBox="0 0 72 72"><g fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="36" cy="40" r="22"/><path d="M36 40V26M36 40l10 6"/><path d="M30 9h12M36 9v9M55 15l4-4"/></g></symbol><symbol id="m-g-spinning" viewBox="0 0 72 72"><g fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="46" r="12"/><circle cx="56" cy="46" r="12"/><path d="M16 46L30 24h14l12 22M30 24l8 22H16M38 46l6-22M26 17h8"/></g></symbol><symbol id="m-g-yoga" viewBox="0 0 72 72"><g fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M36 12C26 24 26 44 36 56 46 44 46 24 36 12z"/><path d="M36 56C22 54 10 44 8 30 22 30 32 40 36 56zM36 56C50 54 62 44 64 30 50 30 40 40 36 56z"/><path d="M14 64h44"/></g></symbol></svg>
+<main class="pagina">
+<section id="inicio" class="pantalla"><header class="cabecera"><h1 class="marca">indar<span>.</span></h1><p class="marca-sub">GYM · BILBAO</p><p class="lema">Entrena fuerte. Sin permanencia.</p></header><nav class="slabs" aria-label="Secciones"><a class="slab s1" href="#cuotas" data-ir="cuotas"><b>01</b><span><strong>Cuotas</strong><span class="s">Planes desde 29,90 €</span></span></a><a class="slab s2" href="#clases" data-ir="clases"><b>02</b><span><strong>Clases</strong><span class="s">Spinning, HIIT, yoga…</span></span></a><a class="slab s3" href="#horarios" data-ir="horarios"><b>03</b><span><strong>Horarios</strong><span class="s">Sala y clases</span></span></a><a class="slab s4" href="#prueba" data-ir="prueba"><b>04</b><span><strong>Prueba gratis</strong><span class="s">7 días sin compromiso</span></span></a></nav><div class="contacto"><a class="accion" href="tel:+34944007890">Llamar</a><a class="accion" href="https://www.google.com/maps/search/?api=1&amp;query=Calle+Alameda+Urquijo+40+Bilbao" target="_blank" rel="noopener">Cómo llegar</a></div><footer class="pie"><p>Calle Alameda Urquijo 40, 48011 Bilbao</p><p>944 00 78 90</p><p>L–V 6:30–23:00 · S–D 9:00–14:00</p></footer></section>
+<section id="cuotas" class="pantalla"><a class="volver" href="#inicio" data-ir="inicio">Volver</a><h2 class="titulo">Cuotas</h2><p class="sub">Sin permanencia. Todos los precios con IVA.</p><div class="bloque"><h2>Mensualidades</h2><ul class="lista"><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Básica</span><span class="precio">29,90 €</span></div><p class="desc">Sala de fitness y vestuarios</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Plus</span><span class="precio">39,90 €</span></div><p class="desc">Sala de fitness y todas las clases dirigidas</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Premium</span><span class="precio">54,90 €</span></div><p class="desc">Plus, sauna y 1 sesión al mes con entrenador</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Estudiante</span><span class="precio">32,90 €</span></div><p class="desc">Hasta 26 años con carné, plan Plus</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Pareja</span><span class="precio">69,90 €</span></div><p class="desc">Plan Plus para 2 personas</p></div></li></ul></div><div class="bloque"><h2>Entrenamiento personal</h2><ul class="lista"><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Bono 4 sesiones</span><span class="precio">120 €</span></div><p class="desc">Sesiones de 55 min</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Bono 8 sesiones</span><span class="precio">220 €</span></div><p class="desc">Sesiones de 55 min</p></div></li></ul></div><div class="bloque"><p class="aviso">Matrícula de 20 €. Te la regalamos si te apuntas durante tu semana de prueba.</p></div></section><section id="clases" class="pantalla"><a class="volver" href="#inicio" data-ir="inicio">Volver</a><h2 class="titulo">Clases</h2><p class="sub">Todas las clases dirigidas están incluidas en Plus y Premium.</p><div class="galeria"><figure class="tile-fig"><div class="tile"><svg viewBox="0 0 72 72" aria-hidden="true"><use href="#m-g-spinning"/></svg><img src="fotos/g-spinning.jpg" alt=""></div><figcaption>Spinning</figcaption></figure><figure class="tile-fig"><div class="tile"><svg viewBox="0 0 72 72" aria-hidden="true"><use href="#m-g-hiit"/></svg><img src="fotos/g-hiit.jpg" alt=""></div><figcaption>HIIT</figcaption></figure><figure class="tile-fig"><div class="tile"><svg viewBox="0 0 72 72" aria-hidden="true"><use href="#m-g-funcional"/></svg><img src="fotos/g-funcional.jpg" alt=""></div><figcaption>Funcional</figcaption></figure><figure class="tile-fig"><div class="tile"><svg viewBox="0 0 72 72" aria-hidden="true"><use href="#m-g-fuerza"/></svg><img src="fotos/g-fuerza.jpg" alt=""></div><figcaption>Fuerza</figcaption></figure><figure class="tile-fig"><div class="tile"><svg viewBox="0 0 72 72" aria-hidden="true"><use href="#m-g-cardio"/></svg><img src="fotos/g-cardio.jpg" alt=""></div><figcaption>Cardio</figcaption></figure><figure class="tile-fig"><div class="tile"><svg viewBox="0 0 72 72" aria-hidden="true"><use href="#m-g-yoga"/></svg><img src="fotos/g-yoga.jpg" alt=""></div><figcaption>Yoga</figcaption></figure></div><div class="bloque"><h2>Qué hacemos en cada una</h2><ul class="lista"><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Spinning</span><span class="precio"></span></div><p class="desc">Bici indoor con música, 45 min</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">HIIT</span><span class="precio"></span></div><p class="desc">Intervalos de alta intensidad, 40 min</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Funcional</span><span class="precio"></span></div><p class="desc">Circuito con kettlebells y peso corporal, 50 min</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Fuerza</span><span class="precio"></span></div><p class="desc">Técnica y progresión con barra, 55 min</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Cardio</span><span class="precio"></span></div><p class="desc">Tonificación y cardio para todos los niveles, 45 min</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Yoga</span><span class="precio"></span></div><p class="desc">Movilidad y respiración, 60 min</p></div></li></ul></div></section><section id="horarios" class="pantalla"><a class="volver" href="#inicio" data-ir="inicio">Volver</a><h2 class="titulo">Horarios</h2><p class="sub">Sala abierta de lunes a viernes de 6:30 a 23:00, sábados y domingos de 9:00 a 14:00.</p><div class="bloque"><h2>Lunes y miércoles</h2><ul class="lista"><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Spinning</span><span class="precio">07:30</span></div></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">HIIT</span><span class="precio">18:30</span></div></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Yoga</span><span class="precio">20:00</span></div></div></li></ul></div><div class="bloque"><h2>Martes y jueves</h2><ul class="lista"><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Funcional</span><span class="precio">09:30</span></div></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Fuerza</span><span class="precio">19:00</span></div></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Cardio</span><span class="precio">20:15</span></div></div></li></ul></div><div class="bloque"><h2>Viernes</h2><ul class="lista"><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Spinning</span><span class="precio">07:30</span></div></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">HIIT</span><span class="precio">18:00</span></div></div></li></ul></div><div class="bloque"><h2>Sábado</h2><ul class="lista"><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Funcional</span><span class="precio">10:00</span></div></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Yoga</span><span class="precio">11:00</span></div></div></li></ul></div><div class="bloque"><p class="aviso">Reserva plaza en clase con 24 horas de antelación. Los domingos no hay clases dirigidas.</p></div></section><section id="prueba" class="pantalla"><a class="volver" href="#inicio" data-ir="inicio">Volver</a><h2 class="titulo">Prueba gratis</h2><p class="sub">Una semana para entrenar sin compromiso.</p><ol class="pasos"><li><strong>Escríbenos</strong><span>Dinos qué objetivo tienes y qué días puedes venir.</span></li><li><strong>Ven a conocernos</strong><span>Te enseñamos las instalaciones y te hacemos una valoración inicial.</span></li><li><strong>Entrena 7 días</strong><span>Acceso a la sala y a las clases, sin coste.</span></li><li><strong>Decide</strong><span>Si te gusta, te apuntas y la matrícula va por nuestra cuenta.</span></li></ol><div class="acciones"><a class="accion llena" href="https://wa.me/34600123456?text=Hola%2C%20quiero%20probar%20una%20semana" target="_blank" rel="noopener">Reservar prueba por WhatsApp</a><a class="accion" href="tel:+34944007890">Llamar</a></div></section>
+</main>
+<script>
+// Show one screen at a time. Without JS all screens stay visible and links just scroll.
+const pantallas = document.querySelectorAll('.pantalla');
+
+function mostrar(id) {
+  const existe = document.getElementById(id);
+  const destino = existe ? id : 'inicio';
+  pantallas.forEach(function (p) {
+    p.hidden = p.id !== destino;
+  });
+  window.scrollTo(0, 0);
+}
+
+document.querySelectorAll('[data-ir]').forEach(function (enlace) {
+  enlace.addEventListener('click', function (e) {
+    e.preventDefault();
+    const id = enlace.getAttribute('data-ir');
+    mostrar(id);
+    location.hash = id;
+  });
+});
+
+window.addEventListener('hashchange', function () {
+  mostrar(location.hash.slice(1));
+});
+
+// Missing photos: remove the broken image so the drawing underneath shows
+document.querySelectorAll('.foto img, .tile img').forEach(function (img) {
+  if (img.complete && img.naturalWidth === 0) {
+    img.remove();
+  } else {
+    img.addEventListener('error', function () {
+      img.remove();
+    });
+  }
+});
+
+mostrar(location.hash.slice(1));
+</script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Lilu Estética y Masajes</title>
+<!-- Lilu Estética y Masajes · Bip page. All names, prices, phones and addresses are invented sample content.
+     Photos: put one image per item in a "fotos" folder next to this file, named as in each <img src>; it covers the drawing.
+     Without JavaScript all sections show stacked and buttons scroll to them. -->
+<style>
+:root{--acento:#8B6BB5;--acento-fuerte:#6B4A94;--acento-texto:#6B4A94;--acento-suave:#EADFF3;--fondo:#F7F2FA;--tarjeta:#FFFFFF;--tinta:#2E2338;--tinta-suave:#6E607A;--linea:#E4D8EE;}
+
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--fondo);color:var(--tinta);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:17px;line-height:1.45}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--acento);outline-offset:3px}
+.pagina{max-width:640px;margin:0 auto;padding:28px 20px 48px}
+.pantalla{margin-bottom:40px}
+.simbolos{position:absolute;width:0;height:0;overflow:hidden}
+
+.cabecera{text-align:center;margin-bottom:28px}
+.marca{margin:0;color:var(--acento)}
+.marca-sub{margin:8px 0 0;font-size:13px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--tinta-suave)}
+.lema{margin:14px 0 0;color:var(--tinta-suave);font-size:16px}
+
+.botones{display:grid;gap:14px;grid-template-columns:1fr}
+@media (min-width:560px){.botones{grid-template-columns:1fr 1fr}}
+.boton{display:flex;flex-direction:column;justify-content:center;gap:2px;min-height:96px;padding:18px 56px 18px 20px;position:relative;background:var(--acento-fuerte);color:#fff;text-decoration:none;border-radius:20px}
+.boton::after{content:"";position:absolute;right:22px;top:50%;width:12px;height:12px;margin-top:-8px;border-right:3px solid #fff;border-top:3px solid #fff;transform:rotate(45deg)}
+.boton strong{font-size:24px;line-height:1.1;font-weight:800}
+.boton span{font-size:15px;opacity:.95}
+.boton.claro{background:var(--tarjeta);color:var(--tinta);border:2px solid var(--acento-fuerte)}
+.boton.claro::after{border-color:var(--acento)}
+
+.contacto{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin-top:24px}
+.accion{display:flex;align-items:center;justify-content:center;min-height:52px;padding:0 12px;border-radius:14px;border:2px solid var(--acento-fuerte);background:transparent;color:var(--acento-texto);font-weight:700;text-decoration:none;text-align:center}
+.accion.llena{background:var(--acento-fuerte);color:#fff}
+.acciones{display:grid;gap:12px;margin-top:20px}
+.pie{margin-top:28px;text-align:center;color:var(--tinta-suave);font-size:14px}
+.pie p{margin:4px 0}
+
+.volver{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 4px;margin-bottom:8px;font-weight:600;color:var(--acento-texto);text-decoration:none}
+.volver::before{content:"";width:10px;height:10px;border-left:3px solid currentColor;border-bottom:3px solid currentColor;transform:rotate(45deg)}
+.titulo{margin:0 0 4px;font-size:34px;line-height:1.05;font-weight:800}
+.sub{margin:0 0 20px;color:var(--tinta-suave)}
+.bloque{margin-top:28px}
+.bloque h2{margin:0 0 6px;padding-bottom:8px;font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--acento-texto);border-bottom:2px solid var(--acento)}
+.lista{list-style:none;margin:0;padding:0}
+.plato{display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--linea)}
+.plato:last-child{border-bottom:0}
+.plato-cuerpo{flex:1;min-width:0}
+.plato-fila{display:flex;justify-content:space-between;gap:16px;align-items:baseline}
+.plato-nombre{font-weight:700;font-size:18px}
+.precio{font-weight:700;white-space:nowrap}
+.desc{margin:2px 0 0;color:var(--tinta-suave);font-size:15px}
+
+.foto{position:relative;flex:none;width:72px;height:72px;overflow:hidden;border-radius:14px;background:var(--acento-suave)}
+.foto svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.foto img,.tile img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;z-index:1}
+
+.galeria{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+@media (min-width:560px){.galeria{grid-template-columns:1fr 1fr 1fr}}
+.tile-fig{margin:0}
+.tile{position:relative;aspect-ratio:1/1;border-radius:16px;overflow:hidden;background:var(--acento-suave);color:var(--acento);border:1px solid var(--linea)}
+.tile svg{position:absolute;left:10%;top:10%;width:80%;height:80%}
+.tile-fig figcaption{margin-top:6px;font-size:14px;font-weight:600;color:var(--tinta-suave);text-align:center}
+
+.pasos{list-style:none;margin:0;padding:0;counter-reset:paso}
+.pasos li{position:relative;padding:12px 0 12px 52px;border-bottom:1px solid var(--linea);counter-increment:paso}
+.pasos li:last-child{border-bottom:0}
+.pasos li::before{content:counter(paso);position:absolute;left:0;top:12px;width:36px;height:36px;border-radius:18px;background:var(--acento-fuerte);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center}
+.pasos strong{display:block}
+.pasos span{color:var(--tinta-suave);font-size:15px}
+
+.aviso{margin:0 0 8px;padding:16px 18px;border-radius:16px;background:var(--tarjeta);border:2px solid var(--acento-fuerte);font-weight:600}
+.precio-menu{display:inline-block;margin:0 0 6px;padding:6px 16px;border-radius:999px;background:var(--acento-fuerte);color:#fff;font-weight:800;font-size:22px}
+
+body.s{font-family:"Avenir Next","Segoe UI",system-ui,sans-serif;font-weight:400}
+.s .pagina{padding-top:30px}
+.s .cabecera{text-align:center;margin-bottom:26px}
+.s .logo{width:68px;height:68px;margin:0 auto 6px;display:block}
+.s .marca{font-size:58px;line-height:1.05;font-weight:300;letter-spacing:.04em;color:var(--tinta)}
+.s .marca-sub{font-size:12px;font-weight:600;letter-spacing:.3em}
+.s .lema{font-size:17px}
+.s .tarjetas{display:grid;gap:14px}
+.s .tarjeta{display:flex;align-items:center;gap:16px;min-height:98px;padding:14px 20px 14px 14px;background:var(--tarjeta);border-radius:30px;text-decoration:none;box-shadow:0 8px 24px rgba(80,50,110,.10)}
+.s .tarjeta .ico{flex:none;width:68px;height:68px;border-radius:50%;background:var(--acento-suave);display:flex;align-items:center;justify-content:center}
+.s .tarjeta .ico svg{width:46px;height:46px}
+.s .tarjeta strong{display:block;font-size:23px;font-weight:600}
+.s .tarjeta .s{display:block;font-size:14px;color:var(--tinta-suave);margin-top:2px}
+.s .tarjeta::after{content:"";margin-left:auto;flex:none;width:9px;height:9px;border-right:2.5px solid var(--acento);border-top:2.5px solid var(--acento);transform:rotate(45deg)}
+.s .tarjeta:active{transform:scale(.985)}
+.s .contacto .accion{border-radius:999px;font-weight:600}
+.s .volver{font-weight:600}
+.s .titulo{font-size:40px;font-weight:300;letter-spacing:.02em}
+.s .bloque h2{border:0;font-size:13px;font-weight:700;letter-spacing:.2em;padding:6px 0}
+.s .plato{background:var(--tarjeta);border:0;border-radius:24px;padding:12px 16px 12px 12px;margin-bottom:10px;box-shadow:0 6px 18px rgba(80,50,110,.08)}
+.s .plato-nombre{font-weight:600;font-size:18px}
+.s .precio{background:var(--acento-suave);border-radius:999px;padding:3px 12px;font-size:15px;color:var(--acento-texto)}
+.s .foto{border-radius:50%;background:var(--acento-suave)}
+.s .aviso{border:0;border-radius:24px;background:var(--acento-suave);font-weight:500}
+.s .pasos li::before{background:var(--acento-suave);color:var(--acento-texto)}
+.s .acciones .accion{border-radius:999px;font-weight:600}
+</style>
+</head>
+<body class="s">
+<svg class="simbolos" aria-hidden="true" focusable="false"><symbol id="m-b-bono" viewBox="0 0 72 72"><rect x="12" y="28" width="48" height="32" rx="4" fill="#F4B6C2"/><rect x="32" y="28" width="8" height="32" fill="#8B6BB5"/><rect x="10" y="20" width="52" height="10" rx="3" fill="#F9CCD5"/><path d="M36 20C30 8 20 10 24 18 28 22 36 20 36 20zM36 20C42 8 52 10 48 18 44 22 36 20 36 20z" fill="#8B6BB5"/></symbol><symbol id="m-b-dia" viewBox="0 0 72 72"><ellipse cx="36" cy="62" rx="22" ry="5" fill="#C9C2B0"/><rect x="25" y="34" width="22" height="28" rx="3" fill="#F3E6D0"/><path d="M36 10C43 19 43 26 36 31 29 26 29 19 36 10z" fill="#F2B01E"/><path d="M36 20C39 23 39 26 36 28 33 26 33 23 36 20z" fill="#FFE08A"/><path d="M36 31v5" stroke="#6B5F55" stroke-width="2" stroke-linecap="round"/></symbol><symbol id="m-b-tarjeta" viewBox="0 0 72 72"><ellipse cx="36" cy="20" rx="8" ry="14" transform="rotate(0 36 36)" fill="#F4B6C2"/><ellipse cx="36" cy="20" rx="8" ry="14" transform="rotate(60 36 36)" fill="#F4B6C2"/><ellipse cx="36" cy="20" rx="8" ry="14" transform="rotate(120 36 36)" fill="#F4B6C2"/><ellipse cx="36" cy="20" rx="8" ry="14" transform="rotate(180 36 36)" fill="#F4B6C2"/><ellipse cx="36" cy="20" rx="8" ry="14" transform="rotate(240 36 36)" fill="#F4B6C2"/><ellipse cx="36" cy="20" rx="8" ry="14" transform="rotate(300 36 36)" fill="#F4B6C2"/><circle cx="36" cy="36" r="7" fill="#F2B01E"/></symbol><symbol id="m-c-cera" viewBox="0 0 72 72"><path d="M14 54h44l-5 8H19z" fill="#B89B72"/><rect x="18" y="26" width="36" height="28" rx="6" fill="#F6D58A"/><path d="M26 30v18M36 30v18M46 30v18" stroke="#E7B94F" stroke-width="3" stroke-linecap="round"/></symbol><symbol id="m-c-envoltura" viewBox="0 0 72 72"><ellipse cx="36" cy="52" rx="22" ry="9" fill="#8F9A8F"/><ellipse cx="36" cy="38" rx="16" ry="7" fill="#B7C2B5"/><ellipse cx="36" cy="26" rx="10" ry="5" fill="#D6DDD2"/><path d="M20 49q6 3 14 3" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round" opacity=".6"/></symbol><symbol id="m-c-exfoliacion" viewBox="0 0 72 72"><rect x="12" y="20" width="48" height="34" rx="6" fill="#E8EEE4"/><path d="M12 30h48M12 44h48" stroke="#B7C2B5" stroke-width="3"/><path d="M26 54v8M36 54v8M46 54v8" stroke="#B7C2B5" stroke-width="3" stroke-linecap="round"/></symbol><symbol id="m-c-pestanas" viewBox="0 0 72 72"><path d="M8 44Q36 70 64 44" fill="none" stroke="#2E3A35" stroke-width="3.4" stroke-linecap="round"/><path d="M14 47l-6-8M24 53l-4-10M36 56v-12M48 53l4-10M58 47l6-8" fill="none" stroke="#2E3A35" stroke-width="3.4" stroke-linecap="round"/></symbol><symbol id="m-f-antiedad" viewBox="0 0 72 72"><ellipse cx="36" cy="20" rx="8" ry="14" transform="rotate(0 36 36)" fill="#F4B6C2"/><ellipse cx="36" cy="20" rx="8" ry="14" transform="rotate(60 36 36)" fill="#F4B6C2"/><ellipse cx="36" cy="20" rx="8" ry="14" transform="rotate(120 36 36)" fill="#F4B6C2"/><ellipse cx="36" cy="20" rx="8" ry="14" transform="rotate(180 36 36)" fill="#F4B6C2"/><ellipse cx="36" cy="20" rx="8" ry="14" transform="rotate(240 36 36)" fill="#F4B6C2"/><ellipse cx="36" cy="20" rx="8" ry="14" transform="rotate(300 36 36)" fill="#F4B6C2"/><circle cx="36" cy="36" r="7" fill="#F2B01E"/></symbol><symbol id="m-f-hidratante" viewBox="0 0 72 72"><rect x="14" y="30" width="44" height="30" rx="8" fill="#F3E6D0"/><rect x="12" y="20" width="48" height="12" rx="5" fill="#B89B72"/><path d="M24 44h24" stroke="#D8C7A5" stroke-width="3" stroke-linecap="round"/></symbol><symbol id="m-f-limpieza" viewBox="0 0 72 72"><path d="M36 8C48 24 58 34 58 45A22 22 0 0 1 14 45C14 34 24 24 36 8z" fill="#7EC4CF"/><path d="M24 46a12 12 0 0 0 8 10" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round" opacity=".8"/></symbol><symbol id="m-f-ojos" viewBox="0 0 72 72"><path d="M10 60C8 30 30 10 62 12 64 42 44 64 10 60z" fill="#8B6BB5"/><path d="M12 58L46 26" stroke="#E8F5EF" stroke-width="2.6" stroke-linecap="round"/></symbol><symbol id="m-m-descontracturante" viewBox="0 0 72 72"><rect x="29" y="6" width="12" height="60" rx="6" fill="#7FB069"/><rect x="29" y="22" width="12" height="3" fill="#5C8F4B"/><rect x="29" y="44" width="12" height="3" fill="#5C8F4B"/><path d="M41 30C52 28 58 22 60 14 50 16 44 22 41 30z" fill="#9CCB86"/><path d="M29 52C20 50 14 44 12 36 22 38 28 44 29 52z" fill="#9CCB86"/></symbol><symbol id="m-m-pareja" viewBox="0 0 72 72"><ellipse cx="36" cy="20" rx="8" ry="14" transform="rotate(0 36 36)" fill="#F4B6C2"/><ellipse cx="36" cy="20" rx="8" ry="14" transform="rotate(60 36 36)" fill="#F4B6C2"/><ellipse cx="36" cy="20" rx="8" ry="14" transform="rotate(120 36 36)" fill="#F4B6C2"/><ellipse cx="36" cy="20" rx="8" ry="14" transform="rotate(180 36 36)" fill="#F4B6C2"/><ellipse cx="36" cy="20" rx="8" ry="14" transform="rotate(240 36 36)" fill="#F4B6C2"/><ellipse cx="36" cy="20" rx="8" ry="14" transform="rotate(300 36 36)" fill="#F4B6C2"/><circle cx="36" cy="36" r="7" fill="#F2B01E"/></symbol><symbol id="m-m-piedras" viewBox="0 0 72 72"><ellipse cx="36" cy="52" rx="22" ry="9" fill="#8F9A8F"/><ellipse cx="36" cy="38" rx="16" ry="7" fill="#B7C2B5"/><ellipse cx="36" cy="26" rx="10" ry="5" fill="#D6DDD2"/><path d="M20 49q6 3 14 3" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round" opacity=".6"/></symbol><symbol id="m-m-piernas" viewBox="0 0 72 72"><path d="M10 60C8 30 30 10 62 12 64 42 44 64 10 60z" fill="#8B6BB5"/><path d="M12 58L46 26" stroke="#E8F5EF" stroke-width="2.6" stroke-linecap="round"/></symbol><symbol id="m-m-relajante" viewBox="0 0 72 72"><ellipse cx="36" cy="62" rx="22" ry="5" fill="#C9C2B0"/><rect x="25" y="34" width="22" height="28" rx="3" fill="#F3E6D0"/><path d="M36 10C43 19 43 26 36 31 29 26 29 19 36 10z" fill="#F2B01E"/><path d="M36 20C39 23 39 26 36 28 33 26 33 23 36 20z" fill="#FFE08A"/><path d="M36 31v5" stroke="#6B5F55" stroke-width="2" stroke-linecap="round"/></symbol></svg>
+<main class="pagina">
+<section id="inicio" class="pantalla"><header class="cabecera"><svg class="logo" viewBox="0 0 72 72" aria-hidden="true"><ellipse cx="36" cy="22" rx="7" ry="14" transform="rotate(-50 36 40)" fill="#9B7BC2" opacity=".85"/><ellipse cx="36" cy="22" rx="7" ry="14" transform="rotate(0 36 40)" fill="#9B7BC2" opacity=".85"/><ellipse cx="36" cy="22" rx="7" ry="14" transform="rotate(50 36 40)" fill="#9B7BC2" opacity=".85"/><circle cx="36" cy="46" r="5" fill="#F4A261"/></svg><h1 class="marca">lilu</h1><p class="marca-sub">ESTÉTICA &amp; MASAJES · BILBAO</p><p class="lema">Tu momento para desconectar.</p></header><nav class="tarjetas" aria-label="Secciones"><a class="tarjeta" href="#masajes" data-ir="masajes"><span class="ico"><svg viewBox="0 0 72 72" aria-hidden="true"><use href="#m-m-relajante"/></svg></span><span><strong>Masajes</strong><span class="s">Relajantes y descontracturantes</span></span></a><a class="tarjeta" href="#faciales" data-ir="faciales"><span class="ico"><svg viewBox="0 0 72 72" aria-hidden="true"><use href="#m-f-hidratante"/></svg></span><span><strong>Faciales</strong><span class="s">Cuidado e hidratación</span></span></a><a class="tarjeta" href="#cuerpo" data-ir="cuerpo"><span class="ico"><svg viewBox="0 0 72 72" aria-hidden="true"><use href="#m-c-exfoliacion"/></svg></span><span><strong>Cuerpo y detalles</strong><span class="s">Exfoliación, cera y pestañas</span></span></a><a class="tarjeta" href="#bonos" data-ir="bonos"><span class="ico"><svg viewBox="0 0 72 72" aria-hidden="true"><use href="#m-b-bono"/></svg></span><span><strong>Bonos y reservas</strong><span class="s">Ahorra o regala</span></span></a></nav><div class="contacto"><a class="accion" href="tel:+34944009012">Llamar</a><a class="accion" href="https://www.google.com/maps/search/?api=1&amp;query=Calle+Elcano+18+Bilbao" target="_blank" rel="noopener">Cómo llegar</a></div><footer class="pie"><p>Calle Elcano 18, 48008 Bilbao</p><p>944 00 90 12</p><p>Lunes a sábado · 10:00–20:30 · Con cita</p></footer></section>
+<section id="masajes" class="pantalla"><a class="volver" href="#inicio" data-ir="inicio">Volver</a><h2 class="titulo">Masajes</h2><p class="sub">Cada masaje incluye una breve consulta inicial. Precios con IVA.</p><div class="bloque"><h2>Masajes</h2><ul class="lista"><li class="plato"><span class="foto"><svg viewBox="0 0 72 72" aria-hidden="true"><use href="#m-m-relajante"/></svg><img src="fotos/m-relajante.jpg" alt=""></span><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Masaje relajante</span><span class="precio">55 €</span></div><p class="desc">60 min · Aceites cálidos y música suave</p></div></li><li class="plato"><span class="foto"><svg viewBox="0 0 72 72" aria-hidden="true"><use href="#m-m-descontracturante"/></svg><img src="fotos/m-descontracturante.jpg" alt=""></span><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Descontracturante</span><span class="precio">60 €</span></div><p class="desc">60 min · Presión firme en cuello y espalda</p></div></li><li class="plato"><span class="foto"><svg viewBox="0 0 72 72" aria-hidden="true"><use href="#m-m-piedras"/></svg><img src="fotos/m-piedras.jpg" alt=""></span><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Piedras calientes</span><span class="precio">75 €</span></div><p class="desc">75 min · Calor localizado en la espalda</p></div></li><li class="plato"><span class="foto"><svg viewBox="0 0 72 72" aria-hidden="true"><use href="#m-m-piernas"/></svg><img src="fotos/m-piernas.jpg" alt=""></span><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Piernas cansadas</span><span class="precio">35 €</span></div><p class="desc">30 min · Drenaje suave y frescor</p></div></li><li class="plato"><span class="foto"><svg viewBox="0 0 72 72" aria-hidden="true"><use href="#m-m-pareja"/></svg><img src="fotos/m-pareja.jpg" alt=""></span><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Masaje en pareja</span><span class="precio">110 €</span></div><p class="desc">60 min · En cabina doble</p></div></li></ul></div><div class="bloque"><p class="aviso">Avísanos antes de la sesión si estás embarazada, tienes alergias o alguna molestia que debamos tener en cuenta.</p></div></section><section id="faciales" class="pantalla"><a class="volver" href="#inicio" data-ir="inicio">Volver</a><h2 class="titulo">Faciales</h2><p class="sub">Empezamos siempre con un diagnóstico de tu piel.</p><div class="bloque"><h2>Tratamientos faciales</h2><ul class="lista"><li class="plato"><span class="foto"><svg viewBox="0 0 72 72" aria-hidden="true"><use href="#m-f-limpieza"/></svg><img src="fotos/f-limpieza.jpg" alt=""></span><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Limpieza profunda</span><span class="precio">48 €</span></div><p class="desc">60 min · Limpieza, extracción e hidratación</p></div></li><li class="plato"><span class="foto"><svg viewBox="0 0 72 72" aria-hidden="true"><use href="#m-f-hidratante"/></svg><img src="fotos/f-hidratante.jpg" alt=""></span><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Hidratante con vitamina C</span><span class="precio">55 €</span></div><p class="desc">50 min · Luminosidad y confort</p></div></li><li class="plato"><span class="foto"><svg viewBox="0 0 72 72" aria-hidden="true"><use href="#m-f-antiedad"/></svg><img src="fotos/f-antiedad.jpg" alt=""></span><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Antiedad con radiofrecuencia</span><span class="precio">70 €</span></div><p class="desc">60 min · Firmeza y textura</p></div></li><li class="plato"><span class="foto"><svg viewBox="0 0 72 72" aria-hidden="true"><use href="#m-f-ojos"/></svg><img src="fotos/f-ojos.jpg" alt=""></span><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Contorno de ojos</span><span class="precio">30 €</span></div><p class="desc">30 min · Descongestiona y refresca</p></div></li></ul></div></section><section id="cuerpo" class="pantalla"><a class="volver" href="#inicio" data-ir="inicio">Volver</a><h2 class="titulo">Cuerpo y detalles</h2><p class="sub">Cuidados corporales, depilación y mirada.</p><div class="bloque"><h2>Cuerpo</h2><ul class="lista"><li class="plato"><span class="foto"><svg viewBox="0 0 72 72" aria-hidden="true"><use href="#m-c-exfoliacion"/></svg><img src="fotos/c-exfoliacion.jpg" alt=""></span><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Exfoliación corporal</span><span class="precio">40 €</span></div><p class="desc">45 min · Sales y aceites esenciales</p></div></li><li class="plato"><span class="foto"><svg viewBox="0 0 72 72" aria-hidden="true"><use href="#m-c-envoltura"/></svg><img src="fotos/c-envoltura.jpg" alt=""></span><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Envoltura hidratante</span><span class="precio">50 €</span></div><p class="desc">60 min · Piel suave y nutrida</p></div></li></ul></div><div class="bloque"><h2>Depilación y mirada</h2><ul class="lista"><li class="plato"><span class="foto"><svg viewBox="0 0 72 72" aria-hidden="true"><use href="#m-c-cera"/></svg><img src="fotos/c-cera.jpg" alt=""></span><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Depilación con cera</span><span class="precio">desde 8 €</span></div><p class="desc">Según zona · Axilas 8 €, piernas completas 22 €</p></div></li><li class="plato"><span class="foto"><svg viewBox="0 0 72 72" aria-hidden="true"><use href="#m-c-pestanas"/></svg><img src="fotos/c-pestanas.jpg" alt=""></span><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Lifting de pestañas</span><span class="precio">45 €</span></div><p class="desc">60 min · Con tinte incluido</p></div></li></ul></div></section><section id="bonos" class="pantalla"><a class="volver" href="#inicio" data-ir="inicio">Volver</a><h2 class="titulo">Bonos y reservas</h2><p class="sub">Ahorra con bonos o regala un momento para desconectar.</p><div class="bloque"><h2>Bonos y regalos</h2><ul class="lista"><li class="plato"><span class="foto"><svg viewBox="0 0 72 72" aria-hidden="true"><use href="#m-b-bono"/></svg><img src="fotos/b-bono.jpg" alt=""></span><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Bono 5 masajes</span><span class="precio">250 €</span></div><p class="desc">Válido 6 meses · Relajante o descontracturante</p></div></li><li class="plato"><span class="foto"><svg viewBox="0 0 72 72" aria-hidden="true"><use href="#m-b-dia"/></svg><img src="fotos/b-dia.jpg" alt=""></span><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Día de spa</span><span class="precio">95 €</span></div><p class="desc">110 min · Masaje relajante y limpieza profunda</p></div></li><li class="plato"><span class="foto"><svg viewBox="0 0 72 72" aria-hidden="true"><use href="#m-b-tarjeta"/></svg><img src="fotos/b-tarjeta.jpg" alt=""></span><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Tarjeta regalo</span><span class="precio">30 €</span></div><p class="desc">Importe a elegir · Desde 30 €</p></div></li></ul></div><div class="bloque"><h2>Reservar</h2><ol class="pasos"><li><strong>Elige tratamiento</strong><span>Cuéntanos qué te apetece.</span></li><li><strong>Elige día y hora</strong><span>Te proponemos huecos libres.</span></li><li><strong>Llega con calma</strong><span>Te pedimos llegar 10 minutos antes. Si no puedes venir, avísanos con 24 horas.</span></li></ol></div><div class="acciones"><a class="accion llena" href="https://wa.me/34600123456?text=Hola%2C%20quiero%20reservar%20un%20tratamiento" target="_blank" rel="noopener">Reservar por WhatsApp</a><a class="accion" href="tel:+34944009012">Llamar</a></div></section>
+</main>
+<script>
+// Show one screen at a time. Without JS all screens stay visible and links just scroll.
+const pantallas = document.querySelectorAll('.pantalla');
+
+function mostrar(id) {
+  const existe = document.getElementById(id);
+  const destino = existe ? id : 'inicio';
+  pantallas.forEach(function (p) {
+    p.hidden = p.id !== destino;
+  });
+  window.scrollTo(0, 0);
+}
+
+document.querySelectorAll('[data-ir]').forEach(function (enlace) {
+  enlace.addEventListener('click', function (e) {
+    e.preventDefault();
+    const id = enlace.getAttribute('data-ir');
+    mostrar(id);
+    location.hash = id;
+  });
+});
+
+window.addEventListener('hashchange', function () {
+  mostrar(location.hash.slice(1));
+});
+
+// Missing photos: remove the broken image so the drawing underneath shows
+document.querySelectorAll('.foto img, .tile img').forEach(function (img) {
+  if (img.complete && img.naturalWidth === 0) {
+    img.remove();
+  } else {
+    img.addEventListener('error', function () {
+      img.remove();
+    });
+  }
+});
+
+mostrar(location.hash.slice(1));
+</script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Restaurante Arrano</title>
+<!-- Restaurante Arrano · Bip page. All names, prices, phones and addresses are invented sample content.
+     Photos: put one image per item in a "fotos" folder next to this file, named as in each <img src>; it covers the drawing.
+     Without JavaScript all sections show stacked and buttons scroll to them. -->
+<style>
+:root{--acento:#C9A24D;--acento-fuerte:#8A2A38;--acento-texto:#D9B866;--acento-suave:#2D181E;--fondo:#1F1015;--tarjeta:#1F1015;--tinta:#F3E9D8;--tinta-suave:#B9A58C;--linea:#4A2A31;}
+
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--fondo);color:var(--tinta);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:17px;line-height:1.45}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--acento);outline-offset:3px}
+.pagina{max-width:640px;margin:0 auto;padding:28px 20px 48px}
+.pantalla{margin-bottom:40px}
+.simbolos{position:absolute;width:0;height:0;overflow:hidden}
+
+.cabecera{text-align:center;margin-bottom:28px}
+.marca{margin:0;color:var(--acento)}
+.marca-sub{margin:8px 0 0;font-size:13px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--tinta-suave)}
+.lema{margin:14px 0 0;color:var(--tinta-suave);font-size:16px}
+
+.botones{display:grid;gap:14px;grid-template-columns:1fr}
+@media (min-width:560px){.botones{grid-template-columns:1fr 1fr}}
+.boton{display:flex;flex-direction:column;justify-content:center;gap:2px;min-height:96px;padding:18px 56px 18px 20px;position:relative;background:var(--acento-fuerte);color:#fff;text-decoration:none;border-radius:20px}
+.boton::after{content:"";position:absolute;right:22px;top:50%;width:12px;height:12px;margin-top:-8px;border-right:3px solid #fff;border-top:3px solid #fff;transform:rotate(45deg)}
+.boton strong{font-size:24px;line-height:1.1;font-weight:800}
+.boton span{font-size:15px;opacity:.95}
+.boton.claro{background:var(--tarjeta);color:var(--tinta);border:2px solid var(--acento-fuerte)}
+.boton.claro::after{border-color:var(--acento)}
+
+.contacto{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin-top:24px}
+.accion{display:flex;align-items:center;justify-content:center;min-height:52px;padding:0 12px;border-radius:14px;border:2px solid var(--acento-fuerte);background:transparent;color:var(--acento-texto);font-weight:700;text-decoration:none;text-align:center}
+.accion.llena{background:var(--acento-fuerte);color:#fff}
+.acciones{display:grid;gap:12px;margin-top:20px}
+.pie{margin-top:28px;text-align:center;color:var(--tinta-suave);font-size:14px}
+.pie p{margin:4px 0}
+
+.volver{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 4px;margin-bottom:8px;font-weight:600;color:var(--acento-texto);text-decoration:none}
+.volver::before{content:"";width:10px;height:10px;border-left:3px solid currentColor;border-bottom:3px solid currentColor;transform:rotate(45deg)}
+.titulo{margin:0 0 4px;font-size:34px;line-height:1.05;font-weight:800}
+.sub{margin:0 0 20px;color:var(--tinta-suave)}
+.bloque{margin-top:28px}
+.bloque h2{margin:0 0 6px;padding-bottom:8px;font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--acento-texto);border-bottom:2px solid var(--acento)}
+.lista{list-style:none;margin:0;padding:0}
+.plato{display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--linea)}
+.plato:last-child{border-bottom:0}
+.plato-cuerpo{flex:1;min-width:0}
+.plato-fila{display:flex;justify-content:space-between;gap:16px;align-items:baseline}
+.plato-nombre{font-weight:700;font-size:18px}
+.precio{font-weight:700;white-space:nowrap}
+.desc{margin:2px 0 0;color:var(--tinta-suave);font-size:15px}
+
+.foto{position:relative;flex:none;width:72px;height:72px;overflow:hidden;border-radius:14px;background:var(--acento-suave)}
+.foto svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.foto img,.tile img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;z-index:1}
+
+.galeria{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+@media (min-width:560px){.galeria{grid-template-columns:1fr 1fr 1fr}}
+.tile-fig{margin:0}
+.tile{position:relative;aspect-ratio:1/1;border-radius:16px;overflow:hidden;background:var(--acento-suave);color:var(--acento);border:1px solid var(--linea)}
+.tile svg{position:absolute;left:10%;top:10%;width:80%;height:80%}
+.tile-fig figcaption{margin-top:6px;font-size:14px;font-weight:600;color:var(--tinta-suave);text-align:center}
+
+.pasos{list-style:none;margin:0;padding:0;counter-reset:paso}
+.pasos li{position:relative;padding:12px 0 12px 52px;border-bottom:1px solid var(--linea);counter-increment:paso}
+.pasos li:last-child{border-bottom:0}
+.pasos li::before{content:counter(paso);position:absolute;left:0;top:12px;width:36px;height:36px;border-radius:18px;background:var(--acento-fuerte);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center}
+.pasos strong{display:block}
+.pasos span{color:var(--tinta-suave);font-size:15px}
+
+.aviso{margin:0 0 8px;padding:16px 18px;border-radius:16px;background:var(--tarjeta);border:2px solid var(--acento-fuerte);font-weight:600}
+.precio-menu{display:inline-block;margin:0 0 6px;padding:6px 16px;border-radius:999px;background:var(--acento-fuerte);color:#fff;font-weight:800;font-size:22px}
+
+body.r{font-family:Georgia,"Times New Roman",serif}
+.r .pagina{padding-top:34px}
+.r .cabecera{text-align:center;padding:30px 12px 26px;border:1px solid var(--acento);outline:1px solid var(--acento);outline-offset:-7px;margin-bottom:6px}
+.r .marca{font-size:46px;line-height:1;font-weight:400;letter-spacing:.26em;margin-right:-.26em;color:var(--tinta);text-transform:uppercase}
+.r .marca-sub{font-size:11.5px;letter-spacing:.38em;margin-top:14px;font-weight:400}
+.r .orn{display:block;width:40px;height:1px;background:var(--acento);margin:16px auto}
+.r .lema{font-style:italic;font-size:17px;margin:0}
+.r .menu{margin-top:10px}
+.r .fila{display:block;text-align:center;text-decoration:none;padding:20px 8px;border-bottom:1px solid var(--linea)}
+.r .fila strong{display:block;font-size:24px;font-weight:400;letter-spacing:.2em;text-transform:uppercase}
+.r .fila .s{display:block;margin-top:5px;font-style:italic;font-size:15px;color:var(--tinta-suave)}
+.r .fila:active{background:var(--acento-suave)}
+.r .contacto{margin-top:26px}
+.r .accion{border-radius:0;border-width:1px;border-color:var(--acento);font-weight:400;letter-spacing:.2em;text-transform:uppercase;font-size:13px}
+.r .volver{font-size:13px;letter-spacing:.2em;text-transform:uppercase;font-weight:400}
+.r .titulo{text-align:center;font-size:36px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;margin:6px 0 8px}
+.r .sub{text-align:center;font-style:italic}
+.r .bloque h2{text-align:center;border:0;font-weight:400;letter-spacing:.34em;font-size:13px;color:var(--acento-texto);padding-bottom:4px}
+.r .bloque h2::after{content:"";display:block;width:32px;height:1px;background:var(--acento);margin:10px auto 0}
+.r .plato{border-bottom:0;padding:10px 0}
+.r .plato-nombre{font-weight:400;font-size:19px}
+.r .precio{font-weight:400;font-style:italic;color:var(--tinta)}
+.r .desc{font-style:italic}
+.r .pasos li::before{background:transparent;color:var(--acento-texto);border:1px solid var(--acento);font-weight:400}
+.r .aviso{border:0;border-top:1px solid var(--linea);border-bottom:1px solid var(--linea);border-radius:0;background:transparent;font-weight:400;font-style:italic;text-align:center}
+.r .acciones .accion{border-radius:0}
+.r .pie{font-style:italic}
+</style>
+</head>
+<body class="r">
+<svg class="simbolos" aria-hidden="true" focusable="false"></svg>
+<main class="pagina">
+<section id="inicio" class="pantalla"><header class="cabecera"><h1 class="marca">arrano</h1><span class="orn"></span><p class="marca-sub">RESTAURANTE · BILBAO</p><span class="orn"></span><p class="lema">Cocina de mercado, sin prisa.</p></header><nav class="menu" aria-label="Secciones"><a class="fila" href="#carta" data-ir="carta"><strong>Carta</strong><span class="s">Entrantes, mar y tierra</span></a><a class="fila" href="#degustacion" data-ir="degustacion"><strong>Menús</strong><span class="s">Degustación y mediodía</span></a><a class="fila" href="#vinos" data-ir="vinos"><strong>Vinos</strong><span class="s">Por copa y botella</span></a><a class="fila" href="#reservar" data-ir="reservar"><strong>Reservar</strong><span class="s">Tu mesa en Arrano</span></a></nav><div class="contacto"><a class="accion" href="tel:+34944008901">Llamar</a><a class="accion" href="https://www.google.com/maps/search/?api=1&amp;query=Calle+Diputacion+6+Bilbao" target="_blank" rel="noopener">Cómo llegar</a></div><footer class="pie"><p>Calle Diputación 6, 48008 Bilbao</p><p>944 00 89 01</p><p>Martes a sábado · 13:30–15:30 y 20:30–23:00</p></footer></section>
+<section id="carta" class="pantalla"><a class="volver" href="#inicio" data-ir="inicio">Volver</a><h2 class="titulo">La carta</h2><p class="sub">Cocina de mercado con producto del Cantábrico. Precios con IVA.</p><div class="bloque"><h2>Para empezar</h2><ul class="lista"><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Croqueta cremosa de jamón ibérico</span><span class="precio">9 €</span></div><p class="desc">Tres unidades</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Ensaladilla de bonito del norte</span><span class="precio">14 €</span></div><p class="desc">Con huevas de trucha y encurtidos</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Carpaccio de gamba roja</span><span class="precio">22 €</span></div><p class="desc">Aceite de cítricos y sal en escamas</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Foie micuit</span><span class="precio">19 €</span></div><p class="desc">Manzana asada, brioche tostado</p></div></li></ul></div><div class="bloque"><h2>Del mar</h2><ul class="lista"><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Merluza de pincho</span><span class="precio">29 €</span></div><p class="desc">Pil-pil ligero y puerro</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Bacalao confitado</span><span class="precio">28 €</span></div><p class="desc">Crema de piquillo y ajo negro</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Rape asado</span><span class="precio">31 €</span></div><p class="desc">Espárragos verdes y salsa de azafrán</p></div></li></ul></div><div class="bloque"><h2>De la tierra</h2><ul class="lista"><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Solomillo de ternera</span><span class="precio">34 €</span></div><p class="desc">Patata trufada y jugo reducido</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Carrilleras ibéricas</span><span class="precio">26 €</span></div><p class="desc">Vino tinto y puré de boniato</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Arroz meloso de pichón</span><span class="precio">27 €</span></div><p class="desc">Setas y reducción de oporto</p></div></li></ul></div><div class="bloque"><h2>Dulces</h2><ul class="lista"><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Torrija caramelizada</span><span class="precio">9 €</span></div><p class="desc">Helado de vainilla</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Tarta de queso cremosa</span><span class="precio">9 €</span></div></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Esfera de chocolate</span><span class="precio">10 €</span></div><p class="desc">Salsa caliente de caramelo salado</p></div></li></ul></div><div class="bloque"><p class="aviso">Si tienes alguna alergia o intolerancia, avisa al equipo de sala antes de pedir.</p></div></section><section id="degustacion" class="pantalla"><a class="volver" href="#inicio" data-ir="inicio">Volver</a><h2 class="titulo">Menús</h2><p class="sub">Para dejarte llevar por la cocina.</p><div class="bloque"><h2>Menú degustación</h2><ul class="lista"><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Siete pases</span><span class="precio">68 €</span></div><p class="desc">Selección de la cocina, para toda la mesa</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Maridaje</span><span class="precio">38 €</span></div><p class="desc">Cuatro vinos seleccionados por el sumiller</p></div></li></ul></div><div class="bloque"><h2>Menú del mediodía</h2><ul class="lista"><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Menú ejecutivo</span><span class="precio">29 €</span></div><p class="desc">De martes a viernes: entrante, principal, postre y bebida</p></div></li></ul></div><div class="bloque"><p class="aviso">El menú degustación se sirve a todos los comensales de la mesa y requiere reserva previa.</p></div></section><section id="vinos" class="pantalla"><a class="volver" href="#inicio" data-ir="inicio">Volver</a><h2 class="titulo">Vinos</h2><p class="sub">Una selección corta, de productores cercanos y de siempre.</p><div class="bloque"><h2>Por copa</h2><ul class="lista"><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Txakoli</span><span class="precio">4,50 €</span></div></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Albariño</span><span class="precio">6 €</span></div><p class="desc">Rías Baixas</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Rioja crianza</span><span class="precio">5,50 €</span></div></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Ribera del Duero</span><span class="precio">7 €</span></div><p class="desc">Roble</p></div></li></ul></div><div class="bloque"><h2>Botella</h2><ul class="lista"><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Albariño</span><span class="precio">28 €</span></div><p class="desc">Rías Baixas</p></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Rioja reserva</span><span class="precio">32 €</span></div></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Ribera del Duero crianza</span><span class="precio">34 €</span></div></div></li><li class="plato"><div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Champagne brut</span><span class="precio">75 €</span></div></div></li></ul></div></section><section id="reservar" class="pantalla"><a class="volver" href="#inicio" data-ir="inicio">Volver</a><h2 class="titulo">Reservar</h2><p class="sub">Te recomendamos reservar con antelación, sobre todo viernes y sábados.</p><ol class="pasos"><li><strong>Dinos cuántos sois</strong><span>Día, hora y número de comensales.</span></li><li><strong>Confirmamos</strong><span>Te respondemos para confirmar la mesa.</span></li><li><strong>Llega a tu hora</strong><span>Mantenemos la mesa 15 minutos. Para grupos de más de 8 personas, llámanos.</span></li></ol><div class="acciones"><a class="accion llena" href="https://wa.me/34600123456?text=Hola%2C%20quiero%20reservar%20mesa" target="_blank" rel="noopener">Reservar por WhatsApp</a><a class="accion" href="tel:+34944008901">Llamar</a></div></section>
+</main>
+<script>
+// Show one screen at a time. Without JS all screens stay visible and links just scroll.
+const pantallas = document.querySelectorAll('.pantalla');
+
+function mostrar(id) {
+  const existe = document.getElementById(id);
+  const destino = existe ? id : 'inicio';
+  pantallas.forEach(function (p) {
+    p.hidden = p.id !== destino;
+  });
+  window.scrollTo(0, 0);
+}
+
+document.querySelectorAll('[data-ir]').forEach(function (enlace) {
+  enlace.addEventListener('click', function (e) {
+    e.preventDefault();
+    const id = enlace.getAttribute('data-ir');
+    mostrar(id);
+    location.hash = id;
+  });
+});
+
+window.addEventListener('hashchange', function () {
+  mostrar(location.hash.slice(1));
+});
+
+// Missing photos: remove the broken image so the drawing underneath shows
+document.querySelectorAll('.foto img, .tile img').forEach(function (img) {
+  if (img.complete && img.naturalWidth === 0) {
+    img.remove();
+  } else {
+    img.addEventListener('error', function () {
+      img.remove();
+    });
+  }
+});
+
+mostrar(location.hash.slice(1));
+</script>
+</body>
+</html>

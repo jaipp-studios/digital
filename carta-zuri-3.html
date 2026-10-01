@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Zuri · Carta</title>
+
+<!--
+  Zuri · digital carta (Bip)
+  All data below (dishes, prices, phone, address, hours) is invented sample content.
+  Photos: put one image per product in a folder called "fotos" next to this file,
+  using the file names written in each <img src>. Square images (e.g. 300x300 px) work best.
+  Until a photo exists, a small illustration of the dish is shown (drawn in the <symbol> list at the top of <body>).
+  Without JavaScript every section shows stacked and the buttons scroll to it.
+-->
+
+<style>
+:root{
+  --acento:#1D9E75;          /* JAIPP green: details and borders */
+  --acento-fuerte:#14795A;   /* darker green: buttons with white text */
+  --acento-suave:#DCEBE4;    /* soft tint: photo placeholders */
+  --fondo:#F1F2EE;
+  --tarjeta:#FFFFFF;
+  --tinta:#14241E;
+  --tinta-suave:#3D4A44;
+  --linea:#D5D9D2;
+}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--fondo);
+  color:var(--tinta);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:17px;
+  line-height:1.45;
+}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--tinta);outline-offset:3px}
+.pagina{max-width:640px;margin:0 auto;padding:28px 20px 48px}
+.pantalla{margin-bottom:40px}
+
+/* ---------- Home ---------- */
+.cabecera{text-align:center;margin-bottom:28px}
+.marca{
+  margin:0;font-family:Georgia,"Times New Roman",serif;
+  font-size:64px;line-height:1;font-weight:700;letter-spacing:-.02em;color:var(--acento);
+}
+.marca-sub{
+  margin:8px 0 0;font-size:13px;font-weight:700;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--tinta-suave);
+}
+.lema{margin:14px 0 0;color:var(--tinta-suave);font-size:16px}
+
+.botones{display:grid;gap:14px;grid-template-columns:1fr}
+@media (min-width:560px){.botones{grid-template-columns:1fr 1fr}}
+.boton{
+  display:flex;flex-direction:column;justify-content:center;gap:2px;
+  min-height:96px;padding:18px 56px 18px 20px;position:relative;
+  background:var(--acento-fuerte);color:#fff;text-decoration:none;
+  border-radius:20px;
+}
+.boton::after{
+  content:"";position:absolute;right:22px;top:50%;
+  width:12px;height:12px;margin-top:-8px;
+  border-right:3px solid #fff;border-top:3px solid #fff;transform:rotate(45deg);
+}
+.boton strong{font-size:24px;line-height:1.1;font-weight:800}
+.boton span{font-size:15px;opacity:.95}
+.boton.claro{background:var(--tarjeta);color:var(--tinta);border:2px solid var(--acento-fuerte)}
+.boton.claro::after{border-color:var(--acento-fuerte)}
+
+.contacto{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin-top:24px}
+.accion{
+  display:flex;align-items:center;justify-content:center;
+  min-height:52px;padding:0 12px;border-radius:14px;
+  border:2px solid var(--acento-fuerte);background:transparent;
+  color:var(--acento-fuerte);font-weight:700;text-decoration:none;text-align:center;
+}
+.pie{margin-top:28px;text-align:center;color:var(--tinta-suave);font-size:14px}
+.pie p{margin:4px 0}
+
+/* ---------- Screens ---------- */
+.volver{
+  display:inline-flex;align-items:center;gap:8px;
+  min-height:44px;padding:0 4px;margin-bottom:8px;
+  font-weight:600;color:var(--acento-fuerte);text-decoration:none;
+}
+.volver::before{
+  content:"";width:10px;height:10px;
+  border-left:3px solid currentColor;border-bottom:3px solid currentColor;transform:rotate(45deg);
+}
+.titulo{margin:0 0 4px;font-family:Georgia,"Times New Roman",serif;font-size:36px;line-height:1.05;font-weight:700}
+.sub{margin:0 0 20px;color:var(--tinta-suave)}
+
+.bloque{margin-top:28px}
+.bloque h2{
+  margin:0 0 6px;padding-bottom:8px;
+  font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+  color:var(--acento-fuerte);border-bottom:2px solid var(--acento);
+}
+.lista{list-style:none;margin:0;padding:0}
+.plato{display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--linea)}
+.plato:last-child{border-bottom:0}
+.plato-cuerpo{flex:1;min-width:0}
+.plato-fila{display:flex;justify-content:space-between;gap:16px;align-items:baseline}
+.plato-nombre{font-weight:700;font-size:18px}
+.precio{font-weight:700;white-space:nowrap}
+.desc{margin:2px 0 0;color:var(--tinta-suave);font-size:15px}
+
+/* Small product photo: an illustration sits underneath, a real photo covers it */
+.foto{
+  position:relative;flex:none;width:72px;height:72px;overflow:hidden;
+  border-radius:14px;background:var(--acento-suave);
+}
+.foto .dibujo{position:absolute;left:0;top:0;width:100%;height:100%}
+.foto img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;z-index:1}
+
+.precio-menu{
+  display:inline-block;margin:0 0 6px;padding:6px 16px;border-radius:999px;
+  background:var(--acento-fuerte);color:#fff;font-weight:800;font-size:22px;
+}
+.incluye{margin:0 0 4px;color:var(--tinta-suave);font-size:15px}
+
+.aviso{
+  margin:0 0 8px;padding:16px 18px;border-radius:16px;
+  background:var(--tarjeta);border:2px solid var(--acento-fuerte);
+  font-weight:600;
+}
+.alergenos{display:grid;gap:10px;grid-template-columns:1fr}
+@media (min-width:560px){.alergenos{grid-template-columns:1fr 1fr}}
+.alergeno{padding:12px 14px;border-radius:14px;background:var(--tarjeta);border:1px solid var(--linea)}
+.alergeno strong{display:block;font-size:16px}
+.alergeno span{color:var(--tinta-suave);font-size:14px}
+.simbolos{position:absolute;width:0;height:0;overflow:hidden}
+</style>
+</head>
+
+<body>
+<svg class="simbolos" aria-hidden="true" focusable="false"><symbol id="d-agua-refrescos" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><circle cx="36" cy="36" r="22" fill="#D3EBF4" stroke="#8CC3D8" stroke-width="3"/><circle cx="36" cy="36" r="17" fill="#E9F6FB"/><rect x="26" y="26" width="9" height="9" rx="2" transform="rotate(10 30 30)" fill="#FFFFFF" stroke="#BFE0EC" stroke-width="1.5"/><rect x="38" y="38" width="9" height="9" rx="2" transform="rotate(-12 42 42)" fill="#FFFFFF" stroke="#BFE0EC" stroke-width="1.5"/><circle cx="29" cy="45" r="6" fill="#F6DF55" stroke="#E7C32E" stroke-width="1.8"/><line x1="46" y1="10" x2="38" y2="36" stroke="#C0392B" stroke-width="3.5" stroke-linecap="round"/></symbol><symbol id="d-alubias-tolosa" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><circle cx="36" cy="36" r="25" fill="#E9E1D3" stroke="#CFC5B3" stroke-width="2"/><circle cx="36" cy="36" r="20" fill="#9C3F22"/><ellipse cx="24" cy="32" rx="4.2" ry="2.8" transform="rotate(20 24 32)" fill="#F4E2BE"/><ellipse cx="30" cy="40" rx="4.2" ry="2.8" transform="rotate(-30 30 40)" fill="#F4E2BE"/><ellipse cx="38" cy="29" rx="4.2" ry="2.8" transform="rotate(10 38 29)" fill="#F4E2BE"/><ellipse cx="45" cy="37" rx="4.2" ry="2.8" transform="rotate(40 45 37)" fill="#F4E2BE"/><ellipse cx="35" cy="47" rx="4.2" ry="2.8" transform="rotate(-10 35 47)" fill="#F4E2BE"/><ellipse cx="26" cy="46" rx="4.2" ry="2.8" transform="rotate(30 26 46)" fill="#F4E2BE"/><ellipse cx="46" cy="28" rx="4.2" ry="2.8" transform="rotate(-20 46 28)" fill="#F4E2BE"/><ellipse cx="40" cy="38" rx="4.2" ry="2.8" transform="rotate(5 40 38)" fill="#F4E2BE"/><circle cx="31" cy="29" r="4.5" fill="#B5301F" stroke="#7E1E12" stroke-width="1.5"/><circle cx="43" cy="44" r="4.5" fill="#B5301F" stroke="#7E1E12" stroke-width="1.5"/></symbol><symbol id="d-arroz-con-leche" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><circle cx="36" cy="36" r="24" fill="#E9E1D3"/><circle cx="36" cy="36" r="19" fill="#FBF6E6"/><circle cx="26" cy="30" r="1.2" fill="#9A5B2B"/><circle cx="32" cy="26" r="1.2" fill="#9A5B2B"/><circle cx="40" cy="28" r="1.2" fill="#9A5B2B"/><circle cx="46" cy="34" r="1.2" fill="#9A5B2B"/><circle cx="28" cy="38" r="1.2" fill="#9A5B2B"/><circle cx="44" cy="44" r="1.2" fill="#9A5B2B"/><circle cx="34" cy="44" r="1.2" fill="#9A5B2B"/><circle cx="38" cy="36" r="1.2" fill="#9A5B2B"/><rect x="28" y="31" width="22" height="5" rx="2.5" transform="rotate(20 39.0 33.5)" fill="#8A4B24"/><path d="M24 46 q4 -6 8 0" stroke="#F2D13A" stroke-width="2.4" fill="none" stroke-linecap="round"/></symbol><symbol id="d-bacalao-pil-pil" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><circle cx="36" cy="36" r="23" fill="#F1DE9A"/><rect x="20" y="28" width="32" height="18" rx="9" transform="rotate(-18 36 37)" fill="#FAF6EC" stroke="#D8CDB2" stroke-width="2"/><path d="M26 37 L44 31 M27 42 L47 36" stroke="#E5DCC4" stroke-width="1.6" fill="none"/><path d="M18 50 Q 28 55 36 49" stroke="#C0392B" stroke-width="3.4" fill="none" stroke-linecap="round"/><path d="M44 52 Q 52 52 56 44" stroke="#C0392B" stroke-width="3.4" fill="none" stroke-linecap="round"/><circle cx="24" cy="24" r="1.8" fill="#4E9A3A"/><circle cx="50" cy="22" r="1.8" fill="#4E9A3A"/><circle cx="46" cy="54" r="1.8" fill="#4E9A3A"/></symbol><symbol id="d-cafe" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><circle cx="36" cy="36" r="27" fill="#F4F1EA" stroke="#D8D2C4" stroke-width="2"/><rect x="49" y="31" width="9" height="10" rx="4" fill="none" stroke="#C9C1B1" stroke-width="3"/><circle cx="33" cy="36" r="17" fill="#FFFFFF" stroke="#C9C1B1" stroke-width="2.5"/><circle cx="33" cy="36" r="12.5" fill="#4B2C1B"/><circle cx="33" cy="36" r="8" fill="#6B4228"/><path d="M26 31 Q 33 27 40 31" stroke="#A8794F" fill="none" stroke-width="2" stroke-linecap="round"/></symbol><symbol id="d-cana-zurito" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><path d="M57 28 h5 a6 6 0 0 1 0 16 h-5" fill="none" stroke="#C07F0C" stroke-width="4"/><circle cx="34" cy="36" r="23" fill="#E5A21F" stroke="#C07F0C" stroke-width="3"/><circle cx="34" cy="36" r="17" fill="#FFF3CD"/><circle cx="28" cy="30" r="2" fill="#FFFFFF"/><circle cx="38" cy="34" r="2" fill="#FFFFFF"/><circle cx="32" cy="42" r="2" fill="#FFFFFF"/><circle cx="42" cy="42" r="2" fill="#FFFFFF"/></symbol><symbol id="d-carrillera" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><circle cx="36" cy="36" r="23" fill="#5A2A2E"/><ellipse cx="25" cy="45" rx="11" ry="9" fill="#F6EBC6"/><rect x="30" y="22" width="26" height="20" rx="7" transform="rotate(12 43 32)" fill="#8A5436" stroke="#5E3722" stroke-width="2"/><path d="M36 28 Q 44 25 52 29" stroke="#B07A55" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="22" cy="50" r="1.8" fill="#4E9A3A"/><circle cx="50" cy="52" r="1.8" fill="#4E9A3A"/></symbol><symbol id="d-crema-puerros" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><circle cx="36" cy="36" r="25" fill="#E9E1D3" stroke="#CFC5B3" stroke-width="2"/><circle cx="36" cy="36" r="20" fill="#A9CC70"/><path d="M25 36 Q31 29 36 36 T47 36" stroke="#FFFFFF" stroke-width="2.6" fill="none" stroke-linecap="round"/><rect x="29" y="43" width="5" height="5" rx="2" transform="rotate(15 31.5 45.5)" fill="#D9A54B"/><rect x="40" y="41" width="5" height="5" rx="2" transform="rotate(-10 42.5 43.5)" fill="#D9A54B"/></symbol><symbol id="d-croquetas-jamon" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><ellipse cx="26" cy="28" rx="10" ry="6.5" transform="rotate(-20 26 28)" fill="#C98235" stroke="#A5631F" stroke-width="2"/><ellipse cx="25" cy="26" rx="5" ry="1.6" transform="rotate(-20 26 28)" fill="#F0C98E"/><ellipse cx="46" cy="31" rx="10" ry="6.5" transform="rotate(15 46 31)" fill="#C98235" stroke="#A5631F" stroke-width="2"/><ellipse cx="45" cy="29" rx="5" ry="1.6" transform="rotate(15 46 31)" fill="#F0C98E"/><ellipse cx="30" cy="46" rx="10" ry="6.5" transform="rotate(10 30 46)" fill="#C98235" stroke="#A5631F" stroke-width="2"/><ellipse cx="29" cy="44" rx="5" ry="1.6" transform="rotate(10 30 46)" fill="#F0C98E"/><ellipse cx="50" cy="50" rx="10" ry="6.5" transform="rotate(-15 50 50)" fill="#C98235" stroke="#A5631F" stroke-width="2"/><ellipse cx="49" cy="48" rx="5" ry="1.6" transform="rotate(-15 50 50)" fill="#F0C98E"/></symbol><symbol id="d-croquetas-pollo" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><ellipse cx="29" cy="29" rx="10" ry="6.5" transform="rotate(-15 29 29)" fill="#D9A24B" stroke="#B5802F" stroke-width="2"/><ellipse cx="28" cy="27" rx="5" ry="1.6" transform="rotate(-15 29 29)" fill="#F0C98E"/><ellipse cx="46" cy="36" rx="10" ry="6.5" transform="rotate(15 46 36)" fill="#D9A24B" stroke="#B5802F" stroke-width="2"/><ellipse cx="45" cy="34" rx="5" ry="1.6" transform="rotate(15 46 36)" fill="#F0C98E"/><ellipse cx="30" cy="47" rx="10" ry="6.5" transform="rotate(8 30 47)" fill="#D9A24B" stroke="#B5802F" stroke-width="2"/><ellipse cx="29" cy="45" rx="5" ry="1.6" transform="rotate(8 30 47)" fill="#F0C98E"/></symbol><symbol id="d-cuajada-miel" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><circle cx="36" cy="36" r="24" fill="#B9764A"/><circle cx="36" cy="36" r="19" fill="#FBF8EF"/><path d="M36 36 a3 3 0 0 1 6 0 a6 6 0 0 1 -12 0 a9 9 0 0 1 18 0" fill="none" stroke="#E3A72F" stroke-width="2.4" stroke-linecap="round"/></symbol><symbol id="d-ensalada-tomate" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><ellipse cx="24" cy="28" rx="11" ry="6" transform="rotate(-30 24 28)" fill="#6FB04A"/><ellipse cx="48" cy="27" rx="11" ry="6" transform="rotate(30 48 27)" fill="#6FB04A"/><ellipse cx="36" cy="20" rx="11" ry="6" transform="rotate(0 36 20)" fill="#6FB04A"/><circle cx="30" cy="38" r="9" fill="#D9362B"/><circle cx="30" cy="38" r="6" fill="#EE6A55"/><circle cx="45" cy="44" r="9" fill="#D9362B"/><circle cx="45" cy="44" r="6" fill="#EE6A55"/><circle cx="42" cy="31" r="9" fill="#D9362B"/><circle cx="42" cy="31" r="6" fill="#EE6A55"/><circle cx="30" cy="38" r="1.6" fill="#F6C4B8"/><circle cx="45" cy="44" r="1.6" fill="#F6C4B8"/><circle cx="42" cy="31" r="1.6" fill="#F6C4B8"/><circle cx="24" cy="49" r="6" fill="none" stroke="#C7A0C9" stroke-width="2"/><circle cx="52" cy="34" r="5" fill="none" stroke="#C7A0C9" stroke-width="2"/></symbol><symbol id="d-flan" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><circle cx="36" cy="36" r="22" fill="#B15A1A"/><circle cx="36" cy="36" r="17" fill="#E3A044"/><circle cx="36" cy="36" r="9" fill="#F0C06A"/><ellipse cx="29" cy="29" rx="4" ry="2" transform="rotate(-30 29 29)" fill="#F8DDA0"/></symbol><symbol id="d-fruta" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><circle cx="47" cy="34" r="13" fill="#F3A02C"/><circle cx="47" cy="34" r="10.5" fill="#FBC565"/><path d="M47 34 L47 23.5 M47 34 L56 28.8 M47 34 L56 39.2 M47 34 L47 44.5 M47 34 L38 39.2 M47 34 L38 28.8" stroke="#F3A02C" stroke-width="1.6"/><circle cx="27" cy="41" r="13" fill="#D0392B"/><ellipse cx="22" cy="36" rx="3" ry="5" transform="rotate(20 22 36)" fill="#E86A5C"/><path d="M27 29 Q 27 23 32 21" stroke="#6B4A2A" stroke-width="2.5" fill="none" stroke-linecap="round"/><ellipse cx="33" cy="25" rx="5" ry="2.6" transform="rotate(-30 33 25)" fill="#5C9E3A"/></symbol><symbol id="d-gilda" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><line x1="12" y1="58" x2="60" y2="14" stroke="#C9A66B" stroke-width="2.4" stroke-linecap="round"/><circle cx="24" cy="47" r="6" fill="#7E8F2F"/><circle cx="24" cy="47" r="2.2" fill="#C0392B"/><path d="M29 43 C 33 37, 37 41, 41 33" fill="none" stroke="#B8603A" stroke-width="4.5" stroke-linecap="round"/><ellipse cx="52" cy="22" rx="10" ry="4.2" transform="rotate(-42 52 22)" fill="#5FA83A"/></symbol><symbol id="d-hamburguesa" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><rect x="16" y="48" width="40" height="8" rx="4" transform="rotate(0 36.0 52.0)" fill="#D99A4A"/><rect x="14" y="40" width="44" height="8" rx="4" transform="rotate(0 36.0 44.0)" fill="#6B3E26"/><polygon points="16,40 56,40 52,46 48,41 40,47 32,41 24,46" fill="#F2C94C"/><path d="M14 38 q4 -5 8 0 t8 0 t8 0 t8 0 t8 0" stroke="#6FB04A" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M16 34 a20 15 0 0 1 40 0 Z" fill="#E0A557"/><ellipse cx="28" cy="24" rx="2" ry="1" fill="#FFF3D6"/><ellipse cx="36" cy="21" rx="2" ry="1" fill="#FFF3D6"/><ellipse cx="44" cy="24" rx="2" ry="1" fill="#FFF3D6"/><ellipse cx="32" cy="29" rx="2" ry="1" fill="#FFF3D6"/><ellipse cx="42" cy="29" rx="2" ry="1" fill="#FFF3D6"/></symbol><symbol id="d-helado" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><polygon points="26,38 46,38 36,64" fill="#D9A25A" stroke="#B67C33" stroke-width="2"/><path d="M30 42 L38 56 M36 40 L40 52 M42 40 L34 56" stroke="#B67C33" stroke-width="1.3" fill="none"/><circle cx="36" cy="35" r="11" fill="#F6BFD0"/><circle cx="36" cy="23" r="9.5" fill="#F8EBC2"/><circle cx="36" cy="14" r="3" fill="#C0283B"/></symbol><symbol id="d-intxaursaltsa" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><circle cx="36" cy="36" r="24" fill="#B9764A"/><circle cx="36" cy="36" r="19" fill="#CFAA7F"/><ellipse cx="30" cy="34" rx="6" ry="4.6" fill="#8A5A2B"/><path d="M24.5 34 L35.5 34" stroke="#5E3B17" stroke-width="1.5"/><ellipse cx="43" cy="41" rx="6" ry="4.6" transform="rotate(30 43 41)" fill="#8A5A2B"/><circle cx="36" cy="26" r="1.4" fill="#7A4A22"/><circle cx="28" cy="44" r="1.4" fill="#7A4A22"/><circle cx="46" cy="30" r="1.4" fill="#7A4A22"/><circle cx="38" cy="46" r="1.4" fill="#7A4A22"/></symbol><symbol id="d-lasana-verduras" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><rect x="14" y="20" width="44" height="34" rx="6" fill="#E6A93C" stroke="#B87A1E" stroke-width="2.5"/><circle cx="24" cy="28" r="3" fill="#C98B25"/><circle cx="44" cy="26" r="3" fill="#C98B25"/><circle cx="32" cy="44" r="3" fill="#C98B25"/><circle cx="48" cy="46" r="3" fill="#C98B25"/><circle cx="52" cy="34" r="3" fill="#C98B25"/><ellipse cx="30" cy="36" rx="7" ry="3.5" transform="rotate(-25 30 36)" fill="#4E9A3A"/><circle cx="43" cy="38" r="3.4" fill="#C0392B"/></symbol><symbol id="d-macarrones" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><ellipse cx="36" cy="40" rx="15" ry="10" fill="#D9472B"/><rect x="19" y="27" width="14" height="6" rx="3" transform="rotate(-25 26.0 30.0)" fill="#F0C867"/><rect x="35" y="23" width="14" height="6" rx="3" transform="rotate(20 42.0 26.0)" fill="#F0C867"/><rect x="25" y="40" width="14" height="6" rx="3" transform="rotate(70 32.0 43.0)" fill="#F0C867"/><rect x="40" y="41" width="14" height="6" rx="3" transform="rotate(-20 47.0 44.0)" fill="#F0C867"/><rect x="29" y="33" width="14" height="6" rx="3" transform="rotate(5 36.0 36.0)" fill="#F0C867"/><rect x="45" y="31" width="14" height="6" rx="3" transform="rotate(60 52.0 34.0)" fill="#F0C867"/><circle cx="22" cy="52" r="1.8" fill="#4E9A3A"/><circle cx="52" cy="50" r="1.8" fill="#4E9A3A"/></symbol><symbol id="d-marmitako" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><circle cx="36" cy="36" r="25" fill="#E9E1D3" stroke="#CFC5B3" stroke-width="2"/><circle cx="36" cy="36" r="20" fill="#C9572B"/><rect x="22" y="28" width="9" height="9" rx="2" transform="rotate(10 26.5 32.5)" fill="#F0CF82"/><rect x="40" y="24" width="9" height="9" rx="2" transform="rotate(-15 44.5 28.5)" fill="#F0CF82"/><rect x="35" y="41" width="9" height="9" rx="2" transform="rotate(20 39.5 45.5)" fill="#F0CF82"/><rect x="24" y="44" width="9" height="9" rx="2" transform="rotate(0 28.5 48.5)" fill="#F0CF82"/><ellipse cx="47" cy="40" rx="5" ry="3.4" fill="#E59A86"/><ellipse cx="30" cy="36" rx="4.5" ry="3" fill="#E59A86"/><rect x="42" y="31" width="7" height="3" rx="1.5" fill="#8E2218"/></symbol><symbol id="d-merluza-pisto" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><circle cx="36" cy="36" r="23" fill="#D2472B"/><rect x="20" y="44" width="4.5" height="4.5" rx="1" transform="rotate(10 22.25 46.25)" fill="#5C9E3A"/><rect x="28" y="52" width="4.5" height="4.5" rx="1" transform="rotate(-10 30.25 54.25)" fill="#E8C13A"/><rect x="46" y="48" width="4.5" height="4.5" rx="1" transform="rotate(15 48.25 50.25)" fill="#5C9E3A"/><rect x="50" y="36" width="4.5" height="4.5" rx="1" transform="rotate(0 52.25 38.25)" fill="#E8C13A"/><rect x="22" y="28" width="4.5" height="4.5" rx="1" transform="rotate(20 24.25 30.25)" fill="#E8C13A"/><rect x="50" y="24" width="4.5" height="4.5" rx="1" transform="rotate(0 52.25 26.25)" fill="#5C9E3A"/><rect x="18" y="29" width="36" height="16" rx="8" transform="rotate(-12 36 37)" fill="#FBF8F0" stroke="#D9CFB8" stroke-width="2"/><path d="M26 36 L44 32 M27 41 L46 37" stroke="#E5DCC4" stroke-width="1.6" fill="none"/></symbol><symbol id="d-merluza-rebozada" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><rect x="18" y="38" width="4" height="22" rx="2" transform="rotate(20 20.0 49.0)" fill="#F2D062"/><rect x="28" y="40" width="4" height="22" rx="2" transform="rotate(-5 30.0 51.0)" fill="#F2D062"/><rect x="38" y="38" width="4" height="22" rx="2" transform="rotate(10 40.0 49.0)" fill="#F2D062"/><rect x="16" y="20" width="38" height="20" rx="9" transform="rotate(-15 35 30)" fill="#DFA340" stroke="#B8791F" stroke-width="2.4"/><circle cx="26" cy="30" r="1.5" fill="#C48826"/><circle cx="36" cy="26" r="1.5" fill="#C48826"/><circle cx="44" cy="31" r="1.5" fill="#C48826"/><circle cx="32" cy="34" r="1.5" fill="#C48826"/><path d="M44 52 A10 10 0 0 0 62 52 Z" fill="#F4DC4A" stroke="#E0BE22" stroke-width="2"/></symbol><symbol id="d-pimientos-gernika" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><ellipse cx="36" cy="25" rx="15" ry="4.8" transform="rotate(-10 36 25)" fill="#4E9A3A"/><ellipse cx="34" cy="23.6" rx="9" ry="1.2" transform="rotate(-10 36 25)" fill="#7CBF5C"/><ellipse cx="36" cy="37" rx="15" ry="4.8" transform="rotate(6 36 37)" fill="#4E9A3A"/><ellipse cx="34" cy="35.6" rx="9" ry="1.2" transform="rotate(6 36 37)" fill="#7CBF5C"/><ellipse cx="36" cy="49" rx="15" ry="4.8" transform="rotate(-6 36 49)" fill="#4E9A3A"/><ellipse cx="34" cy="47.6" rx="9" ry="1.2" transform="rotate(-6 36 49)" fill="#7CBF5C"/><circle cx="20" cy="30" r="1.3" fill="#FFFFFF"/><circle cx="50" cy="44" r="1.3" fill="#FFFFFF"/><circle cx="28" cy="58" r="1.3" fill="#FFFFFF"/><circle cx="58" cy="32" r="1.3" fill="#FFFFFF"/></symbol><symbol id="d-pollo-caserio" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><rect x="16" y="45" width="9" height="9" rx="3" transform="rotate(10 20.5 49.5)" fill="#F0C768"/><rect x="29" y="50" width="9" height="9" rx="3" transform="rotate(-8 33.5 54.5)" fill="#F0C768"/><rect x="44" y="44" width="9" height="9" rx="3" transform="rotate(15 48.5 48.5)" fill="#F0C768"/><line x1="46" y1="22" x2="58" y2="11" stroke="#F4EBD6" stroke-width="5" stroke-linecap="round"/><circle cx="58" cy="9" r="3.2" fill="#F4EBD6"/><circle cx="61" cy="13" r="3.2" fill="#F4EBD6"/><ellipse cx="34" cy="31" rx="17" ry="11" transform="rotate(-32 34 31)" fill="#C47A2F" stroke="#9A5A1B" stroke-width="2.4"/><ellipse cx="30" cy="27" rx="8" ry="3" transform="rotate(-32 30 27)" fill="#DDA05A"/></symbol><symbol id="d-rioja" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><circle cx="36" cy="36" r="21" fill="#8E1B2E" stroke="#5E0F1E" stroke-width="3"/><circle cx="36" cy="36" r="16" fill="#7A1426"/><path d="M26 28 A13 13 0 0 1 36 23" stroke="#E58A9A" stroke-width="3" fill="none" stroke-linecap="round"/></symbol><symbol id="d-risotto-setas" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><circle cx="36" cy="36" r="23" fill="#F2E4B6"/><circle cx="24" cy="24" r="1.6" fill="#FBF3D7"/><circle cx="34" cy="22" r="1.6" fill="#FBF3D7"/><circle cx="44" cy="24" r="1.6" fill="#FBF3D7"/><circle cx="50" cy="32" r="1.6" fill="#FBF3D7"/><circle cx="22" cy="36" r="1.6" fill="#FBF3D7"/><circle cx="50" cy="46" r="1.6" fill="#FBF3D7"/><circle cx="26" cy="52" r="1.6" fill="#FBF3D7"/><circle cx="38" cy="54" r="1.6" fill="#FBF3D7"/><circle cx="46" cy="54" r="1.6" fill="#FBF3D7"/><circle cx="20" cy="44" r="1.6" fill="#FBF3D7"/><path d="M21 31 A7 6 0 0 1 35 31 Z" fill="#9A7350"/><rect x="25.5" y="31" width="5" height="6" rx="2" fill="#E9DCC0"/><path d="M37 37 A7 6 0 0 1 51 37 Z" fill="#9A7350"/><rect x="41.5" y="37" width="5" height="6" rx="2" fill="#E9DCC0"/><path d="M23 48 A7 6 0 0 1 37 48 Z" fill="#9A7350"/><rect x="27.5" y="48" width="5" height="6" rx="2" fill="#E9DCC0"/><circle cx="40" cy="26" r="1.6" fill="#4E9A3A"/><circle cx="38" cy="48" r="1.6" fill="#4E9A3A"/></symbol><symbol id="d-tarta-queso" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><polygon points="14,38 50,38 50,54 14,54" fill="#F7E7B8"/><polygon points="14,38 26,26 62,26 50,38" fill="#C8793A"/><polygon points="50,38 62,26 62,42 50,54" fill="#EBD49A"/><polygon points="14,54 50,54 50,57 14,57" fill="#E3C783"/><circle cx="38" cy="32" r="3.2" fill="#B0233B"/></symbol><symbol id="d-tortilla-patata" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><circle cx="36" cy="36" r="21" fill="#E9B83B" stroke="#C98F1F" stroke-width="3"/><ellipse cx="29" cy="30" rx="4" ry="2.2" fill="#F6DD8E"/><ellipse cx="42" cy="34" rx="4" ry="2.2" fill="#F6DD8E"/><ellipse cx="33" cy="43" rx="4" ry="2.2" fill="#F6DD8E"/><ellipse cx="44" cy="45" rx="4" ry="2.2" fill="#F6DD8E"/><path d="M36 36 L53 22" stroke="#C98F1F" stroke-width="2.4"/></symbol><symbol id="d-txakoli" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><circle cx="36" cy="36" r="21" fill="#E9EBA8" stroke="#C5C77A" stroke-width="3"/><circle cx="36" cy="36" r="16" fill="#F5F6C8"/><path d="M26 28 A13 13 0 0 1 36 23" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round"/></symbol><symbol id="d-txangurro" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><circle cx="58.0" cy="36.0" r="3.4" fill="#D6612B"/><circle cx="53.8" cy="48.9" r="3.4" fill="#D6612B"/><circle cx="42.8" cy="56.9" r="3.4" fill="#D6612B"/><circle cx="29.2" cy="56.9" r="3.4" fill="#D6612B"/><circle cx="18.2" cy="48.9" r="3.4" fill="#D6612B"/><circle cx="14.0" cy="36.0" r="3.4" fill="#D6612B"/><circle cx="18.2" cy="23.1" r="3.4" fill="#D6612B"/><circle cx="29.2" cy="15.1" r="3.4" fill="#D6612B"/><circle cx="42.8" cy="15.1" r="3.4" fill="#D6612B"/><circle cx="53.8" cy="23.1" r="3.4" fill="#D6612B"/><circle cx="36" cy="36" r="21" fill="#D6612B" stroke="#A9441A" stroke-width="2.5"/><circle cx="36" cy="36" r="15.5" fill="#EDB25A"/><circle cx="30" cy="31" r="2.6" fill="#C98A32"/><circle cx="42" cy="34" r="2.6" fill="#C98A32"/><circle cx="34" cy="42" r="2.6" fill="#C98A32"/><circle cx="44" cy="43" r="2.6" fill="#C98A32"/><circle cx="36" cy="28" r="2.6" fill="#C98A32"/></symbol><symbol id="d-yogur" viewBox="0 0 72 72"><circle cx="36" cy="36" r="33" fill="#FFFFFF"/><circle cx="36" cy="36" r="28" fill="none" stroke="#E7E2D8" stroke-width="2"/><line x1="54" y1="10" x2="45" y2="28" stroke="#B7B0A1" stroke-width="3" stroke-linecap="round"/><polygon points="20,28 52,28 48,58 24,58" fill="#FFFFFF" stroke="#CFC9BC" stroke-width="2"/><polygon points="21.5,38 50.5,38 49.5,48 22.5,48" fill="#1D9E75"/><ellipse cx="36" cy="28" rx="16" ry="4" fill="#FBF3E0" stroke="#CFC9BC" stroke-width="2"/><circle cx="36" cy="25" r="5" fill="#D0392B"/><ellipse cx="38" cy="21" rx="3" ry="1.6" fill="#5C9E3A"/></symbol></svg>
+<main class="pagina">
+
+  <!-- ================= HOME ================= -->
+  <section id="inicio" class="pantalla">
+    <header class="cabecera">
+      <!-- To use a real logo, replace the h1 with: <img src="logo.png" alt="Zuri" width="220"> -->
+      <h1 class="marca">zuri</h1>
+      <p class="marca-sub">Cocina vasca · Bilbao</p>
+      <p class="lema">Producto de temporada y cocina de siempre.</p>
+    </header>
+
+    <nav class="botones" aria-label="Secciones de la carta">
+      <a class="boton" href="#carta" data-ir="carta"><strong>Carta</strong><span>Pintxos, platos y postres</span></a>
+      <a class="boton" href="#menu-del-dia" data-ir="menu-del-dia"><strong>Menú del día</strong><span>De martes a viernes</span></a>
+      <a class="boton claro" href="#ninos" data-ir="ninos"><strong>Niños</strong><span>Menú y platos pequeños</span></a>
+      <a class="boton claro" href="#alergias" data-ir="alergias"><strong>Alergias</strong><span>Alérgenos e intolerancias</span></a>
+    </nav>
+
+    <div class="contacto">
+      <a class="accion" href="tel:+34944001234">Llamar</a>
+      <a class="accion" href="https://www.google.com/maps/search/?api=1&amp;query=Calle+Hurtado+de+Am%C3%A9zaga+18+Bilbao" target="_blank" rel="noopener">Cómo llegar</a>
+    </div>
+
+    <footer class="pie">
+      <p>Calle Hurtado de Amézaga 18, 48008 Bilbao</p>
+      <p>944 00 12 34</p>
+      <p>Martes a domingo · 13:00–16:00 y 20:00–23:30 · Lunes cerrado</p>
+      <p>Precios con IVA incluido.</p>
+    </footer>
+  </section>
+
+  <!-- ================= CARTA ================= -->
+  <section id="carta" class="pantalla">
+    <a class="volver" href="#inicio" data-ir="inicio">Volver</a>
+    <h2 class="titulo">Carta</h2>
+    <p class="sub">Si tienes alguna alergia o intolerancia, díselo al personal antes de pedir.</p>
+
+    <div class="bloque">
+      <h2>Pintxos y para picar</h2>
+      <ul class="lista">
+        <li class="plato">
+          <span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-gilda"/></svg><img src="fotos/gilda.jpg" alt=""></span>
+          <div class="plato-cuerpo">
+            <div class="plato-fila"><span class="plato-nombre">Gilda</span><span class="precio">2,80 €</span></div>
+            <p class="desc">Piparra, anchoa y aceituna.</p>
+          </div>
+        </li>
+        <li class="plato">
+          <span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-tortilla-patata"/></svg><img src="fotos/tortilla-patata.jpg" alt=""></span>
+          <div class="plato-cuerpo">
+            <div class="plato-fila"><span class="plato-nombre">Tortilla de patata</span><span class="precio">3,50 €</span></div>
+            <p class="desc">Jugosa, de cebolla pochada.</p>
+          </div>
+        </li>
+        <li class="plato">
+          <span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-croquetas-jamon"/></svg><img src="fotos/croquetas-jamon.jpg" alt=""></span>
+          <div class="plato-cuerpo">
+            <div class="plato-fila"><span class="plato-nombre">Croquetas de jamón</span><span class="precio">9,50 €</span></div>
+            <p class="desc">Ración de seis.</p>
+          </div>
+        </li>
+        <li class="plato">
+          <span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-pimientos-gernika"/></svg><img src="fotos/pimientos-gernika.jpg" alt=""></span>
+          <div class="plato-cuerpo">
+            <div class="plato-fila"><span class="plato-nombre">Pimientos de Gernika</span><span class="precio">8,00 €</span></div>
+            <p class="desc">Fritos, con sal gorda.</p>
+          </div>
+        </li>
+        <li class="plato">
+          <span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-txangurro"/></svg><img src="fotos/txangurro.jpg" alt=""></span>
+          <div class="plato-cuerpo">
+            <div class="plato-fila"><span class="plato-nombre">Txangurro gratinado</span><span class="precio">16,00 €</span></div>
+            <p class="desc">Centollo con tomate y brandy.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="bloque">
+      <h2>Principales</h2>
+      <ul class="lista">
+        <li class="plato">
+          <span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-bacalao-pil-pil"/></svg><img src="fotos/bacalao-pil-pil.jpg" alt=""></span>
+          <div class="plato-cuerpo">
+            <div class="plato-fila"><span class="plato-nombre">Bacalao al pil-pil</span><span class="precio">18,50 €</span></div>
+            <p class="desc">Lomo de bacalao con su salsa y pimientos.</p>
+          </div>
+        </li>
+        <li class="plato">
+          <span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-marmitako"/></svg><img src="fotos/marmitako.jpg" alt=""></span>
+          <div class="plato-cuerpo">
+            <div class="plato-fila"><span class="plato-nombre">Marmitako de bonito</span><span class="precio">17,00 €</span></div>
+            <p class="desc">Guiso marinero de patata y pimiento choricero.</p>
+          </div>
+        </li>
+        <li class="plato">
+          <span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-carrillera"/></svg><img src="fotos/carrillera.jpg" alt=""></span>
+          <div class="plato-cuerpo">
+            <div class="plato-fila"><span class="plato-nombre">Carrillera de ternera</span><span class="precio">16,50 €</span></div>
+            <p class="desc">Cocinada despacio al vino tinto, con puré de patata.</p>
+          </div>
+        </li>
+        <li class="plato">
+          <span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-risotto-setas"/></svg><img src="fotos/risotto-setas.jpg" alt=""></span>
+          <div class="plato-cuerpo">
+            <div class="plato-fila"><span class="plato-nombre">Risotto de setas</span><span class="precio">13,50 €</span></div>
+            <p class="desc">Arroz cremoso con setas de temporada y queso Idiazabal.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="bloque">
+      <h2>Postres</h2>
+      <ul class="lista">
+        <li class="plato">
+          <span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-tarta-queso"/></svg><img src="fotos/tarta-queso.jpg" alt=""></span>
+          <div class="plato-cuerpo">
+            <div class="plato-fila"><span class="plato-nombre">Tarta de queso</span><span class="precio">6,00 €</span></div>
+          </div>
+        </li>
+        <li class="plato">
+          <span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-intxaursaltsa"/></svg><img src="fotos/intxaursaltsa.jpg" alt=""></span>
+          <div class="plato-cuerpo">
+            <div class="plato-fila"><span class="plato-nombre">Intxaursaltsa</span><span class="precio">5,50 €</span></div>
+            <p class="desc">Crema tradicional de nueces.</p>
+          </div>
+        </li>
+        <li class="plato">
+          <span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-cuajada-miel"/></svg><img src="fotos/cuajada-miel.jpg" alt=""></span>
+          <div class="plato-cuerpo">
+            <div class="plato-fila"><span class="plato-nombre">Cuajada con miel</span><span class="precio">5,00 €</span></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="bloque">
+      <h2>Bebidas</h2>
+      <ul class="lista">
+        <li class="plato">
+          <span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-agua-refrescos"/></svg><img src="fotos/agua-refrescos.jpg" alt=""></span>
+          <div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Agua, refrescos</span><span class="precio">2,50 €</span></div></div>
+        </li>
+        <li class="plato">
+          <span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-cana-zurito"/></svg><img src="fotos/cana-zurito.jpg" alt=""></span>
+          <div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Caña / zurito</span><span class="precio">2,20 €</span></div></div>
+        </li>
+        <li class="plato">
+          <span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-txakoli"/></svg><img src="fotos/txakoli.jpg" alt=""></span>
+          <div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Txakoli</span><span class="precio">3,50 €</span></div></div>
+        </li>
+        <li class="plato">
+          <span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-rioja"/></svg><img src="fotos/rioja.jpg" alt=""></span>
+          <div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Copa de Rioja</span><span class="precio">3,50 €</span></div></div>
+        </li>
+        <li class="plato">
+          <span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-cafe"/></svg><img src="fotos/cafe.jpg" alt=""></span>
+          <div class="plato-cuerpo"><div class="plato-fila"><span class="plato-nombre">Café</span><span class="precio">1,60 €</span></div></div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= MENÚ DEL DÍA ================= -->
+  <section id="menu-del-dia" class="pantalla">
+    <a class="volver" href="#inicio" data-ir="inicio">Volver</a>
+    <h2 class="titulo">Menú del día</h2>
+    <p class="precio-menu">15,50 €</p>
+    <p class="incluye">Pan, bebida y postre o café incluidos. De martes a viernes, de 13:00 a 16:00.</p>
+
+    <div class="bloque">
+      <h2>Primeros</h2>
+      <ul class="lista">
+        <li class="plato"><span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-ensalada-tomate"/></svg><img src="fotos/ensalada-tomate.jpg" alt=""></span><div class="plato-cuerpo"><span class="plato-nombre">Ensalada de tomate y cebolla tierna</span></div></li>
+        <li class="plato"><span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-alubias-tolosa"/></svg><img src="fotos/alubias-tolosa.jpg" alt=""></span><div class="plato-cuerpo"><span class="plato-nombre">Alubias de Tolosa con sus sacramentos</span></div></li>
+        <li class="plato"><span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-crema-puerros"/></svg><img src="fotos/crema-puerros.jpg" alt=""></span><div class="plato-cuerpo"><span class="plato-nombre">Crema de puerros</span></div></li>
+      </ul>
+    </div>
+
+    <div class="bloque">
+      <h2>Segundos</h2>
+      <ul class="lista">
+        <li class="plato"><span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-merluza-pisto"/></svg><img src="fotos/merluza-pisto.jpg" alt=""></span><div class="plato-cuerpo"><span class="plato-nombre">Merluza a la plancha con pisto</span></div></li>
+        <li class="plato"><span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-pollo-caserio"/></svg><img src="fotos/pollo-caserio.jpg" alt=""></span><div class="plato-cuerpo"><span class="plato-nombre">Pollo de caserío asado con patatas</span></div></li>
+        <li class="plato"><span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-lasana-verduras"/></svg><img src="fotos/lasana-verduras.jpg" alt=""></span><div class="plato-cuerpo"><span class="plato-nombre">Lasaña de verduras</span></div></li>
+      </ul>
+    </div>
+
+    <div class="bloque">
+      <h2>Postres</h2>
+      <ul class="lista">
+        <li class="plato"><span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-arroz-con-leche"/></svg><img src="fotos/arroz-con-leche.jpg" alt=""></span><div class="plato-cuerpo"><span class="plato-nombre">Arroz con leche</span></div></li>
+        <li class="plato"><span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-fruta"/></svg><img src="fotos/fruta.jpg" alt=""></span><div class="plato-cuerpo"><span class="plato-nombre">Fruta de temporada</span></div></li>
+        <li class="plato"><span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-flan"/></svg><img src="fotos/flan.jpg" alt=""></span><div class="plato-cuerpo"><span class="plato-nombre">Flan casero</span></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= NIÑOS ================= -->
+  <section id="ninos" class="pantalla">
+    <a class="volver" href="#inicio" data-ir="inicio">Volver</a>
+    <h2 class="titulo">Niños</h2>
+    <p class="precio-menu">9,00 €</p>
+    <p class="incluye">Menú infantil: un plato a elegir, bebida y postre. Para menores de 12 años.</p>
+
+    <div class="bloque">
+      <h2>Plato a elegir</h2>
+      <ul class="lista">
+        <li class="plato"><span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-macarrones"/></svg><img src="fotos/macarrones.jpg" alt=""></span><div class="plato-cuerpo"><span class="plato-nombre">Macarrones con tomate</span></div></li>
+        <li class="plato"><span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-croquetas-pollo"/></svg><img src="fotos/croquetas-pollo.jpg" alt=""></span><div class="plato-cuerpo"><span class="plato-nombre">Croquetas de pollo (4 uds.)</span></div></li>
+        <li class="plato"><span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-hamburguesa"/></svg><img src="fotos/hamburguesa.jpg" alt=""></span><div class="plato-cuerpo"><span class="plato-nombre">Hamburguesa pequeña con patatas</span></div></li>
+        <li class="plato"><span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-merluza-rebozada"/></svg><img src="fotos/merluza-rebozada.jpg" alt=""></span><div class="plato-cuerpo"><span class="plato-nombre">Merluza rebozada con patatas</span></div></li>
+      </ul>
+    </div>
+
+    <div class="bloque">
+      <h2>Postre a elegir</h2>
+      <ul class="lista">
+        <li class="plato"><span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-helado"/></svg><img src="fotos/helado.jpg" alt=""></span><div class="plato-cuerpo"><span class="plato-nombre">Helado</span></div></li>
+        <li class="plato"><span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-yogur"/></svg><img src="fotos/yogur.jpg" alt=""></span><div class="plato-cuerpo"><span class="plato-nombre">Yogur</span></div></li>
+        <li class="plato"><span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-fruta"/></svg><img src="fotos/fruta.jpg" alt=""></span><div class="plato-cuerpo"><span class="plato-nombre">Fruta del día</span></div></li>
+      </ul>
+    </div>
+
+    <div class="bloque">
+      <h2>Bebida a elegir</h2>
+      <ul class="lista">
+        <li class="plato"><span class="foto"><svg class="dibujo" viewBox="0 0 72 72" aria-hidden="true"><use href="#d-agua-refrescos"/></svg><img src="fotos/agua-refrescos.jpg" alt=""></span><div class="plato-cuerpo"><span class="plato-nombre">Agua, zumo o refresco</span></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= ALERGIAS ================= -->
+  <section id="alergias" class="pantalla">
+    <a class="volver" href="#inicio" data-ir="inicio">Volver</a>
+    <h2 class="titulo">Alergias e intolerancias</h2>
+    <p class="aviso">Avisa siempre al personal si tienes una alergia o intolerancia. Te indicaremos qué platos puedes tomar y cómo se preparan.</p>
+    <p class="sub">Los 14 alérgenos de declaración obligatoria. Pregunta al personal cuáles contiene cada plato.</p>
+
+    <div class="alergenos">
+      <div class="alergeno"><strong>Gluten</strong><span>Trigo, cebada, centeno, avena y derivados</span></div>
+      <div class="alergeno"><strong>Crustáceos</strong><span>Gambas, langostinos, centollo</span></div>
+      <div class="alergeno"><strong>Huevo</strong><span>Y productos que lo contienen</span></div>
+      <div class="alergeno"><strong>Pescado</strong><span>Y derivados</span></div>
+      <div class="alergeno"><strong>Cacahuetes</strong><span>Y productos a base de cacahuete</span></div>
+      <div class="alergeno"><strong>Soja</strong><span>Y derivados</span></div>
+      <div class="alergeno"><strong>Lácteos</strong><span>Leche, queso, nata, mantequilla (incluida la lactosa)</span></div>
+      <div class="alergeno"><strong>Frutos de cáscara</strong><span>Almendras, avellanas, nueces, pistachos</span></div>
+      <div class="alergeno"><strong>Apio</strong><span>Y productos derivados</span></div>
+      <div class="alergeno"><strong>Mostaza</strong><span>Y productos derivados</span></div>
+      <div class="alergeno"><strong>Sésamo</strong><span>Granos y derivados</span></div>
+      <div class="alergeno"><strong>Sulfitos</strong><span>Presentes en vino, vinagre y algunos conservantes</span></div>
+      <div class="alergeno"><strong>Altramuces</strong><span>Y productos derivados</span></div>
+      <div class="alergeno"><strong>Moluscos</strong><span>Mejillones, almejas, calamar, pulpo</span></div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+// Show one screen at a time. Without JS all screens stay visible and links just scroll.
+const pantallas = document.querySelectorAll('.pantalla');
+
+function mostrar(id) {
+  const existe = document.getElementById(id);
+  const destino = existe ? id : 'inicio';
+  pantallas.forEach(function (p) {
+    p.hidden = p.id !== destino;
+  });
+  window.scrollTo(0, 0);
+}
+
+// Buttons: show the screen directly and keep the hash so the back button works
+document.querySelectorAll('[data-ir]').forEach(function (enlace) {
+  enlace.addEventListener('click', function (e) {
+    e.preventDefault();
+    const id = enlace.getAttribute('data-ir');
+    mostrar(id);
+    location.hash = id;
+  });
+});
+
+// Back button / manual hash changes
+window.addEventListener('hashchange', function () {
+  mostrar(location.hash.slice(1));
+});
+
+// Missing photos: remove the broken image so the placeholder shows
+document.querySelectorAll('.foto img').forEach(function (img) {
+  if (img.complete && img.naturalWidth === 0) {
+    img.remove();
+  } else {
+    img.addEventListener('error', function () {
+      img.remove();
+    });
+  }
+});
+
+// First load (supports opening the link with #carta etc.)
+mostrar(location.hash.slice(1));
+</script>
+</body>
+</html>
